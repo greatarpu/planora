@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planora - My Tickets</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        /* ── Page layout ── */
+        .my-tickets-sec {
+            padding: 16px 24px 80px;
+            position: relative;
+            z-index: 5;
+        }
+
+        /* ── Page nav (back + title) ── */
+        .page-nav-bar {
+            height: 50px;
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            background: #FFFFFF60;
+            border: 0.5px solid #E7D6D9;
+            position: relative;
+            z-index: 5;
+            gap: 8px;
+        }
+
+        .page-nav-title {
+            font-family: 'Alwyn New Rounded' !important;
+            font-weight: 500;
+            font-size: var(--fs-md);
+            color: #8C3665;
+            margin-bottom: 0;
+        }
+
+        /* ══════════════════════════════════════
+           LEFT PANEL — ticket list
+        ══════════════════════════════════════ */
+
+        .tickets-list-panel {
+            /* background: #ffffff90;
+            border: 1.5px solid #DBCAD4;
+            border-radius: 8px;
+            padding: 16px;
+            min-height: 420px; */
+            height: calc(100vh - 200px);
+            padding: 16px;
+        }
+
+        /* Individual ticket row card */
+        /* Individual ticket row card */
+        .ticket-row {
+            background: #fff;
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2px;
+            cursor: pointer;
+            transition: box-shadow 0.15s, border-color 0.15s;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 0 0.6px #D6D6D6;
+            width: 100%;
+        }
+
+        .ticket-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .ticket-row:hover,
+        .ticket-row.active {
+            box-shadow: inset 0 0 0 0.6px #8C3665;
+        }
+
+        /* Left notch for active ticket */
+        .ticket-row-meta {
+            flex: 1;
+        }
+
+
+        .ticket-row-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .ticket-row-meta-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .ticket-row-meta-item img {
+            width: 15px;
+            height: 15px;
+            flex-shrink: 0;
+        }
+
+        .ticket-row-meta-item p {
+            font-family: 'Lato';
+            font-size: var(--fs-xs);
+            color: #333;
+            font-weight: 500;
+            margin-bottom: 0;
+
+        }
+
+        /* QR thumbnail on right of each row */
+        .ticket-row-qr {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            flex-shrink: 0;
+        }
+
+        .ticket-row-qr-thumb {
+            width: 64px;
+            height: 64px;
+            border-radius: 6px;
+            background: linear-gradient(135deg, #f8d7e3 0%, #f3c4da 100%);
+            border: 1px solid #DBCAD4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .ticket-row-qr-thumb svg {
+            width: 36px;
+            height: 36px;
+        }
+
+        .ticket-row-qr-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .tap-label {
+            font-family: 'Lato';
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
+            background: transparent linear-gradient(180deg, #8D1460 0%, #570938 100%);
+            border-radius: 4px;
+            padding: 2px 12px;
+            display: inline-block;
+        }
+
+        /* Dashed tear separator inside row */
+        .ticket-row-divider {
+            width: 1px;
+            height: 64px;
+            border-left: 2px dashed #DBCAD4;
+            margin: 0 8px;
+            flex-shrink: 0;
+        }
+
+        /* Notch cutouts on divider (top & bottom semicircles) */
+        .ticket-row-notch-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+            position: relative;
+            height: 80px;
+            margin: 0 10px;
+        }
+
+        .ticket-row-notch-wrap::before {
+            content: '';
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #fff;
+            flex-shrink: 0;
+            position: absolute;
+            border: solid 0.6px #D6D6D6;
+        }
+
+        .ticket-row-notch-wrap::after {
+            content: '';
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #fff;
+            flex-shrink: 0;
+            position: absolute;
+            border: solid 0.6px #D6D6D6;
+        }
+
+        .ticket-row-notch-wrap::before {
+            top: -20px;
+        }
+
+        .ticket-row-notch-wrap::after {
+            bottom: -20px;
+        }
+
+        .ticket-row-notch-line {
+            width: 0;
+            flex: 1;
+            border-left: 2px dashed #DBCAD4;
+            height: 100%;
+        }
+
+
+        /* ══════════════════════════════════════
+           RIGHT PANEL — full ticket preview
+        ══════════════════════════════════════ */
+
+        .ticket-preview-panel {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 8px;
+        }
+
+        /* The full ticket card */
+        .full-ticket-card {
+            background: #fff;
+            border-radius: 16px;
+            width: 300px;
+            max-width: 100%;
+            overflow: visible;
+            position: relative;
+            margin-top: 65px;
+            margin-bottom: 24px;
+        }
+
+        /* Top gradient section */
+        .full-ticket-top {
+            background-color: #fff;
+            border-radius: 8px 8px 0 0;
+            padding: 50px 24px 0px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .full-ticket-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 3px solid #8C3665;
+            overflow: hidden;
+            margin-bottom: 14px;
+            background: #f0d9e7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: -50px;
+        }
+
+        .full-ticket-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .full-ticket-name {
+            font-family: 'Lato' !important;
+            font-weight: 700;
+            font-size: var(--fs-sm);
+            color: #292929;
+            margin-bottom: 2px;
+        }
+
+        .full-ticket-role,
+        .full-ticket-team,
+        .full-ticket-dept {
+            font-family: 'Lato';
+            font-weight: 700;
+            font-size: 12px;
+            color: #757575;
+            margin-bottom: 1px;
+        }
+
+        /* Tear line with circle notches */
+        .full-ticket-tear {
+            display: flex;
+            align-items: center;
+            position: relative;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .full-ticket-tear::before,
+        .full-ticket-tear::after {
+            content: '';
+            width: 30px;
+            height: 30px;
+            background: #dbcad4;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin: 0 -11px;
+            border: 0.5px solid #d8c6d0;
+            z-index: 2;
+        }
+
+        .full-ticket-tear-line {
+            flex: 1;
+            border: none;
+            border-top: 2px dashed #999999;
+            margin: 0 2px;
+        }
+
+        /* Bottom white section */
+        .full-ticket-bottom {
+            background: #fff;
+            border-radius: 0 0 8px 8px;
+            padding: 0px 24px 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .full-ticket-event-name {
+            font-family: 'Alwyn New Rounded' !important;
+            font-weight: 700;
+            font-size: var(--fs-sm);
+            color: #8C3665;
+            margin-bottom: 2px;
+        }
+
+        .full-ticket-event-date {
+            font-family: 'Lato';
+            font-size: var(--fs-xs);
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .full-ticket-scan-label {
+            font-family: 'Lato';
+            font-size: var(--fs-xs);
+            color: #888;
+            font-style: italic;
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+
+        .full-ticket-qr {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .full-ticket-qr img {
+            width: 100px;
+            height: 100px;
+        }
+
+        /* Empty state when no ticket selected */
+        .ticket-preview-empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 300px;
+            color: #bbb;
+            gap: 12px;
+        }
+
+        .ticket-preview-empty svg {
+            width: 48px;
+            height: 48px;
+            opacity: 0.35;
+        }
+
+        .ticket-preview-empty p {
+            font-family: 'Lato';
+            font-size: var(--fs-xs);
+            color: #bbb;
+            margin-bottom: 0;
+        }
+
+        /* ── QR Tap trigger ── */
+        .qr-tap {
+            border: none;
+            background: transparent;
+            width: 125px;
+        }
+
+        .qr-tap-thumb {
+            transition: box-shadow 0.2s;
+        }
+
+        .qr-tap:hover .qr-tap-thumb {
+            transform: scale(1.1);
+        }
+
+        .qr-tap-thumb img {
+            width: 75px;
+            height: 75px;
+        }
+
+        .my-tickets-panel {
+            border-radius: 8px;
+            background-color: #DBCAD4;
+            margin: 0px;
+            overflow: hidden;
+        }
+
+        .my-tickets-panel .col-xl-4 {
+            background-color: #fff;
+            margin: 0px;
+        }
+
+        .my-tickets-panel .col-xl-7 {
+            background-color: #f3dfe6;
+            margin: 0px;
+        }
+
+
+        /* ══════════════════════════════════════
+           QR MODAL OVERLAY
+        ══════════════════════════════════════ */
+
+        .qr-modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(80, 20, 50, 0.45);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qr-modal-overlay.open {
+            display: flex;
+        }
+
+        .qr-modal-card {
+            background: #fff;
+            border-radius: 16px;
+            width: 340px;
+            max-width: 92vw;
+            position: relative;
+            overflow: visible;
+            box-shadow: 0 12px 40px rgba(80, 20, 50, 0.3);
+            animation: modalIn 0.25s ease;
+            padding: 75px 24px 24px;
+            background: transparent linear-gradient(270deg, #EE82A3 0%, #FFA953 100%) 0% 0% no-repeat padding-box;
+            border-radius: 8px;
+        }
+
+        @keyframes modalIn {
+            from {
+                transform: scale(0.88) translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .qr-modal-top {
+            background: #fff;
+            border-radius: 8px 8px 0 0;
+            padding: 65px 24px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .qr-modal-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid #8C3665;
+            overflow: hidden;
+            margin-bottom: 14px;
+            background: #f0d9e7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: -50px;
+        }
+
+        .qr-modal-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .qr-modal-name {
+            font-family: 'Lato' !important;
+            font-weight: 700;
+            font-size: var(--fs-sm);
+            color: #292929;
+            margin-bottom: 2px;
+        }
+
+        .qr-modal-role,
+        .qr-modal-team,
+        .qr-modal-dept {
+            font-family: 'Lato';
+            font-size: var(--fs-xs);
+            font-weight: 700;
+            color: #757575;
+            margin-bottom: 1px;
+        }
+
+        /* Dashed tear-line with circle notches */
+        .qr-modal-tear {
+            display: flex;
+            align-items: center;
+            position: relative;
+            margin: 0;
+            background-color: #fff;
+            padding-top: 0px;
+        }
+
+        .qr-modal-tear::before {
+            content: '';
+            width: 25px;
+            height: 25px;
+            background: rgb(255 169 84);
+            border-radius: 50%;
+            flex-shrink: 0;
+            position: absolute;
+            left: -12px;
+            z-index: 1;
+        }
+
+        .qr-modal-tear::after {
+            content: '';
+            width: 25px;
+            height: 25px;
+            background: #ee8599;
+            border-radius: 50%;
+            flex-shrink: 0;
+            position: absolute;
+            right: -12px;
+            z-index: 1;
+        }
+
+        .qr-modal-tear-line {
+            flex: 1;
+            border: none;
+            border-top: 2px dashed #000;
+            margin: 0 -1px;
+        }
+
+        .qr-modal-bottom {
+            background: #fff;
+            border-radius: 0 0 8px 8px;
+            padding: 20px 24px 28px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .qr-modal-event-name {
+            font-family: 'Lato' !important;
+            font-weight: 700;
+            font-size: var(--fs-md);
+            color: #8C3665;
+            margin-bottom: 2px;
+        }
+
+        .qr-modal-event-date {
+            font-family: 'Lato';
+            font-size: var(--fs-sm);
+            color: #6F2754;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .qr-modal-scan-label {
+            font-family: 'Lato';
+            font-size: var(--fs-xs);
+            color: #292929;
+            font-style: italic;
+            margin-bottom: 14px;
+        }
+
+        .qr-code-box {
+            width: 160px;
+            height: 160px;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qr-code-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Close button */
+        .qr-modal-close {
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            width: 30px;
+            height: 30px;
+            background: #fff;
+            border: 1.5px solid #DBCAD4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+            transition: background 0.15s;
+            z-index: 10;
+        }
+
+        .qr-modal-close:hover {
+            background: #fde8ea;
+        }
+
+        .qr-modal-close svg {
+            width: 14px;
+            height: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="blob-bg-body">
+
+        <!-- ═══════════════════════════════════════════
+             HEADER
+        ════════════════════════════════════════════ -->
+        <section class="header-sec">
+            <div class="custom-container p-0">
+                <div class="brand-sec">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-xl-3 col-lg-12 d-flex justify-content-between align-items-center">
+                                <a class="brand" href="#">
+                                    <img class="brand-img" src="./images/landing-page/logo.png">
+                                    <p class="brand-txt">Planora.AI</p>
+                                </a>
+                                <button class="navbar-toggler d-xl-none border-0 p-0" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                                    <span class="navbar-toggler-icon">
+                                        <img src="./images/Assets User Personna/Mobile/Home/hamburger.svg"
+                                            style="width: 30px;">
+                                    </span>
+                                </button>
+                            </div>
+
+                            <div class="col-xl-9">
+                                <div class="collapse navbar-collapse d-xl-flex justify-content-end align-items-center"
+                                    id="navbarNav">
+                                    <div class="d-xl-none text-end w-100 collapsible-sidebar">
+                                        <div class="user-details-sec">
+                                            <span class="user-icon-sec">
+                                                <img class="user-icon"
+                                                    src="./images/Assets_Organiser_Personna/Header and Footer/profile.svg">
+                                            </span>
+                                            <span class="user-name">Haritha Rengarajan</span>
+                                        </div>
+                                        <button type="button" class="btn-close btn-close-white"
+                                            data-bs-toggle="collapse" data-bs-target="#navbarNav"></button>
+                                    </div>
+
+                                    <div class="global-nav-sec">
+                                        <ul>
+                                            <li><a class="global-nav-link active" href="my-tickets.html">
+                                                    <img src="./images/Assets_Organiser_Personna/Header and Footer/ticket.svg"
+                                                        alt="">
+                                                    <span>My Tickets</span></a>
+                                            </li>
+                                            <li><a class="global-nav-link" href="#">
+                                                    <img src="./images/Assets_Organiser_Personna/Header and Footer/help.svg"
+                                                        alt="">
+                                                    <span>Help</span></a>
+                                            </li>
+                                            <li><a class="global-nav-link" href="#">
+                                                    <img src="./images/Assets_Organiser_Personna/Header and Footer/notification_bell.svg"
+                                                        alt="">
+                                                    <span>Notification</span></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="user-details-sec d-none d-xl-block">
+                                        <span class="user-icon-sec">
+                                            <img class="user-icon"
+                                                src="./images/Assets_Organiser_Personna/Header and Footer/profile.svg">
+                                        </span>
+                                        <span class="user-name">Haritha Rengarajan</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════
+             PAGE NAV BAR
+        ════════════════════════════════════════════ -->
+        <div class="page-nav-bar">
+            <a class="back-icon-link" href="user-home.html">
+                <img class="back-icon" src="./images/Assets_Organiser_Personna/Form Setup/back.svg" alt=""
+                    style="height:18px;">
+            </a>
+            <p class="page-nav-title">Registered Event Tickets</p>
+        </div>
+
+        <!-- ═══════════════════════════════════════════
+             MAIN CONTENT
+        ════════════════════════════════════════════ -->
+        <section class="my-tickets-sec">
+            <div class="custom-container">
+                <div class="my-tickets-panel">
+                    <div class="container-fluid">
+
+                        <div class="row g-4">
+
+                            <div class="col-12 col-sm-6 col-xl-4">
+                                <div class="tickets-list-panel">
+
+
+                                    <div class="ticket-row" id="ticket-row-1" onclick="selectTicket(1)">
+                                        <div class="ticket-row-meta">
+                                            <div class="ticket-row-meta-item">
+                                                <img src="./images/Assets_Organiser_Personna/All Events and My Events/Event icon card.svg"
+                                                    alt="">
+                                                <p>Convergence - 2025</p>
+                                            </div>
+                                            <div class="ticket-row-meta-item">
+                                                <img src="./images/Assets_Organiser_Personna/All Events and My Events/Location card.svg"
+                                                    alt="">
+                                                <p>Trade Center, Chennai.</p>
+                                            </div>
+                                            <div class="ticket-row-meta-item">
+                                                <img src="./images/Assets_Organiser_Personna/All Events and My Events/Calendar card.svg"
+                                                    alt="">
+                                                <p>11/11/2025</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="ticket-row-notch-wrap">
+                                            <div class="ticket-row-notch-line"></div>
+                                        </div>
+
+                                        <button class="qr-tap" onclick="openQrModal()" title="View QR Code">
+                                            <div class="qr-tap-thumb">
+                                                <img src="./images/Assets User Personna/Mobile/Event/tap.png">
+                                            </div>
+                                        </button>
+                                    </div>
+
+
+                                    <div class="ticket-row" id="ticket-row-2" onclick="selectTicket(2)">
+                                        <div class="ticket-row-meta">
+                                            <div class="ticket-row-meta-item">
+                                                <img src="./images/Assets_Organiser_Personna/All Events and My Events/Event icon card.svg"
+                                                    alt="">
+                                                <p>Campus Celebration 2026</p>
+                                            </div>
+                                            <div class="ticket-row-meta-item">
+                                                <img src="./images/Assets_Organiser_Personna/All Events and My Events/Location card.svg"
+                                                    alt="">
+                                                <p>Frihamnen, Stockholm</p>
+                                            </div>
+                                            <div class="ticket-row-meta-item">
+                                                <img src="./images/Assets_Organiser_Personna/All Events and My Events/Calendar card.svg"
+                                                    alt="">
+                                                <p>22 May 2026</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="ticket-row-notch-wrap">
+                                            <div class="ticket-row-notch-line"></div>
+                                        </div>
+
+                                        <button class="qr-tap" onclick="openQrModal()" title="View QR Code">
+                                            <div class="qr-tap-thumb">
+                                                <img src="./images/Assets User Personna/Mobile/Event/tap.png">
+                                            </div>
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div><!-- /left col -->
+
+                            <div class="col-sm-6 col-xl-8 d-none d-sm-block">
+                                <div class="ticket-preview-panel" id="ticketPreview">
+
+                                    <!-- Full ticket card (shown by default for ticket 1) -->
+                                    <div class="full-ticket-card" id="fullTicketCard">
+
+                                        <!-- Top gradient + profile -->
+                                        <div class="full-ticket-top">
+                                            <div class="full-ticket-avatar">
+                                                <img src="./images/Assets_Organiser_Personna/Header and Footer/profile.svg"
+                                                    alt="Haritha Rengarajan" onerror="this.style.opacity='0.4'">
+                                            </div>
+                                            <p class="full-ticket-name">Haritha Rengarajan</p>
+                                            <p class="full-ticket-role">UX Consultant</p>
+                                            <p class="full-ticket-team">SharePoint Development Team</p>
+                                            <p class="full-ticket-dept">Enterprise Capabilities and Solutions</p>
+                                        </div>
+
+                                        <!-- Tear line -->
+                                        <div class="full-ticket-tear">
+                                            <hr class="full-ticket-tear-line">
+                                        </div>
+
+                                        <!-- Bottom: event info + QR -->
+                                        <div class="full-ticket-bottom">
+                                            <p class="full-ticket-event-name" id="previewEventName">Convergence 2025</p>
+                                            <p class="full-ticket-event-date" id="previewEventDate">11 Nov 2025 | 10:00
+                                                AM
+                                            </p>
+                                            <p class="full-ticket-scan-label">Scan the QR Code to<br>get entry at the
+                                                venue
+                                            </p>
+                                            <div class="full-ticket-qr">
+                                                <img src="./images/Assets User Personna/Mobile/Event/main-qr.png">
+                                            </div>
+                                        </div>
+
+                                    </div><!-- /full-ticket-card -->
+
+                                </div>
+                            </div><!-- /right col -->
+
+                        </div><!-- /row -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </section><!-- /blob-bg-body -->
+
+    <!-- ═══════════════════════════════════════════
+         FOOTER
+    ════════════════════════════════════════════ -->
+    <section class="footer-sec">
+        <div class="custom-container">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-sm-6">
+                        <p class="credits-txt">Powered by ECS | Hyperautomation</p>
+                    </div>
+                    <div class="col-sm-6 text-end">
+                        <img src="./images/Assets_Organiser_Personna/Header and Footer/footer-logo.svg"
+                            class="footer-logo">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ═══════════════════════════════════════════
+         QR CODE MODAL
+    ════════════════════════════════════════════ -->
+    <div class="qr-modal-overlay" id="qrModalOverlay" onclick="handleOverlayClick(event)">
+        <div class="qr-modal-card" id="qrModalCard">
+
+            <!-- Close button -->
+            <button class="qr-modal-close" onclick="closeQrModal()" title="Close">
+                <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="2" y1="2" x2="12" y2="12" stroke="#8C3665" stroke-width="2" stroke-linecap="round" />
+                    <line x1="12" y1="2" x2="2" y2="12" stroke="#8C3665" stroke-width="2" stroke-linecap="round" />
+                </svg>
+            </button>
+
+            <!-- Top: gradient section with avatar + name -->
+            <div class="qr-modal-top">
+                <div class="qr-modal-avatar">
+                    <img src="./images/Assets_Organiser_Personna/Header and Footer/profile.svg" alt="Haritha Rengarajan"
+                        onerror="this.style.opacity='0.4'">
+                </div>
+                <p class="qr-modal-name">Haritha Rengarajan</p>
+                <p class="qr-modal-role">UX Consultant</p>
+                <p class="qr-modal-team">SharePoint Development Team</p>
+                <p class="qr-modal-dept">Enterprise Capabilities and Solutions</p>
+            </div>
+
+            <!-- Tear-line divider -->
+            <div class="qr-modal-tear">
+                <hr class="qr-modal-tear-line">
+            </div>
+
+            <!-- Bottom: event details + QR code -->
+            <div class="qr-modal-bottom">
+                <p class="qr-modal-event-name">Convergence 2025</p>
+                <p class="qr-modal-event-date">11 Nov 2025 | 10:00 AM</p>
+                <p class="qr-modal-scan-label">Scan the QR Code to<br>get entry at the venue</p>
+                <div class="qr-code-box">
+                    <img src="./images/Assets_Organiser_Personna/Event Information/">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        /* ─── QR Modal ─── */
+        function openQrModal() {
+            // document.getElementById('qrModalOverlay').classList.add('open');
+            // document.body.style.overflow = 'hidden';
+            if (window.innerWidth >= 576) return;  // ← desktop/tablet: do nothing
+            document.getElementById('qrModalOverlay').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeQrModal() {
+            document.getElementById('qrModalOverlay').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        function handleOverlayClick(e) {
+            if (e.target === document.getElementById('qrModalOverlay')) {
+                closeQrModal();
+            }
+        }
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeQrModal();
+        });
+
+
+
+        /* ─── Mobile Tab Switcher ─── */
+        function switchTab(tab, clickedBtn) {
+            // Update button active states
+            document.querySelectorAll('.mobile-tab-btn').forEach(function (btn) {
+                btn.classList.remove('active');
+            });
+            clickedBtn.classList.add('active');
+
+            // Update panel active states
+            document.querySelectorAll('.tab-panel').forEach(function (panel) {
+                panel.classList.remove('active');
+            });
+            document.getElementById('tab-panel-' + tab).classList.add('active');
+        }
+    </script>
+
+    <script>
+        // Ticket data — extend as needed
+        var tickets = {
+            1: {
+                name: 'Convergence 2025',
+                date: '11 Nov 2025 | 10:00 AM'
+            },
+            2: {
+                name: 'Campus Celebration 2026',
+                date: '22 may 2026 | 12:00 PM'
+            }
+        };
+
+        function selectTicket(id) {
+            // Update active row highlight
+            document.querySelectorAll('.ticket-row').forEach(function (r) {
+                r.classList.remove('active');
+            });
+            document.getElementById('ticket-row-' + id).classList.add('active');
+
+            // Update preview panel
+            var t = tickets[id];
+            document.getElementById('previewEventName').textContent = t.name;
+            document.getElementById('previewEventDate').textContent = t.date;
+
+            // Animate card in
+            var card = document.getElementById('fullTicketCard');
+            card.style.animation = 'none';
+            card.offsetHeight; // reflow
+            card.style.animation = 'ticketSwap 0.22s ease';
+        }
+    </script>
+
+    <style>
+        @keyframes ticketSwap {
+            from {
+                opacity: 0;
+                transform: translateY(12px) scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+    </style>
+
+</body>
+
+</html>

@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planora - Events</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        /* ── Welcome & Stats Section ── */
+        .welcome-stats-sec {
+            padding: 24px 24px 0;
+            position: relative;
+            z-index: 5;
+        }
+
+        .welcome-card {
+            background: #FFFFFF;
+            border: 0.5px solid #DBCAD4;
+            border-radius: 8px;
+            box-shadow: 0px 2px 2px #0000002E;
+            padding: 20px 24px;
+        }
+
+        .welcome-heading {
+            font-family: 'Alwyn New Rounded' !important;
+            font-weight: 700;
+            font-size: var(--fs-xl);
+            color: #8C3665;
+            margin-bottom: 6px;
+        }
+
+        .welcome-sub {
+            font-family: 'Lato';
+            font-size: var(--fs-xs);
+            color: #000000;
+            margin-bottom: 0;
+            font-style: italic;
+        }
+
+        .stat-divider {
+            border-left: 1px solid #E2D2DB;
+            height: 60px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .stat-number {
+            font-family: 'Lato';
+            font-weight: 700;
+            font-size: 3.2rem;
+            color: #4A4A4A;
+            line-height: 1.1;
+            margin-bottom: 6px;
+        }
+
+        .stat-label-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .stat-label-row img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .stat-label {
+            font-family: 'Lato';
+            font-size: var(--fs-xs);
+            color: #4A4A4A;
+            font-weight: 500;
+            margin-bottom: 0;
+        }
+
+        /* ── Search + Export bar ── */
+        .action-bar-sec {
+            padding: 16px 24px 0;
+            position: relative;
+            z-index: 5;
+        }
+
+        .search-input-wrap {
+            position: relative;
+            max-width: 300px;
+        }
+
+        .search-input-wrap img.search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            pointer-events: none;
+        }
+
+        #eventsSearch {
+            padding: 8px 14px 8px 36px;
+            border-radius: 5px;
+            border: 0.8px solid #DBCAD4;
+            background: #fff;
+            font-family: 'Lato';
+            font-size: var(--fs-xs);
+            color: #1c1c1c;
+            outline: none;
+            width: 260px;
+            transition: border-color .2s, box-shadow .2s;
+        }
+
+        #eventsSearch::placeholder {
+            color: #aaa;
+        }
+
+        #eventsSearch:focus {
+            border-color: #8C3665;
+            box-shadow: 0 0 0 3px rgba(140, 54, 101, 0.08);
+        }
+
+        /* ── Events Panel ── */
+        .events-panel-sec {
+            padding: 16px 24px 80px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .events-panel {
+            background: #fdf3f1;
+            border: 0.5px solid #DBCAD4;
+            border-radius: 8px;
+            box-shadow: 0px 2px 2px #0000002E;
+            overflow: hidden;
+        }
+
+        /* ── Custom Tabs ── */
+        .events-tab-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 0.5px solid #DBCAD4;
+            background: #fdf3f1;
+            padding: 0 16px 0 0;
+        }
+
+        .events-tabs {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .events-tabs li a {
+            display: inline-flex;
+            align-items: center;
+            padding: 14px 24px;
+            font-family: 'Alwyn New Rounded', sans-serif;
+            font-size: var(--fs-xs);
+            font-weight: 500;
+            color: #757575;
+            text-decoration: none !important;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .events-tabs li a:hover {
+            color: #8C3665;
+        }
+
+        .events-tabs li.active a {
+            color: #fff;
+            font-weight: 700;
+            background: transparent linear-gradient(180deg, #9B346B 0%, #4E1A36 100%) 0% 0% no-repeat padding-box;
+        }
+
+        /* ── View Toggle Icons ── */
+        .view-toggle {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .view-toggle-btn {
+            background: none;
+            border: none;
+            padding: 6px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.15s;
+        }
+
+        .view-toggle-btn:hover {
+            background: #f0d9e7;
+        }
+
+        .view-toggle-btn.active {
+            background: #e8c4d8;
+        }
+
+        .view-toggle-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .toggle-divider {
+            width: 1px;
+            height: 20px;
+            background: #DBCAD4;
+            margin: 0 2px;
+        }
+
+        /* ── Tab Content Panels ── */
+        .tab-content-panel {
+            display: none;
+        }
+
+        .tab-content-panel.active {
+            display: block;
+        }
+
+        /* ── Card View ── */
+        .view-panel {
+            display: none;
+            padding: 20px;
+        }
+
+        .view-panel.active {
+            display: block;
+        }
+
+        .event-card {
+            background: #fff;
+            border: 0.5px solid #DBCAD4;
+            border-radius: 8px;
+            box-shadow: 0px 2px 4px #0000001A;
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 6px 12px rgba(140, 54, 101, 0.12);
+        }
+
+        .event-card-img {
+            position: relative;
+            width: 100%;
+            height: 130px;
+            overflow: hidden;
+        }
+
+        .event-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Placeholder gradient when no image */
+        .event-card-img-placeholder {
+            width: 100%;
+            height: 130px;
+            background: linear-gradient(135deg, #c06090 0%, #6F2754 100%);
+        }
+
+        .event-status-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-family: 'Lato';
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .badge-upcoming {
+            background: #FFF3CD;
+            color: #856404;
+        }
+
+        .badge-inprogress {
+            background: #D4EDDA;
+            color: #155724;
+        }
+
+        .badge-completed {
+            background: #CCE5FF;
+            color: #004085;
+        }
+
+        .event-card {
+            display: block;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .event-card-body {
+            padding: 14px 16px;
+        }
+
+        .event-card-meta {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .event-card-meta img {
+            width: 16px;
+            height: 16px;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .event-card-meta p {
+            font-family: 'Lato';
+            font-size: var(--fs-xs);
+            color: #333;
+            margin-bottom: 0;
+            font-weight: 500;
+        }
+
+        /* ── Table View (events list) ── */
+        .events-table-wrap {
+            padding: 0;
+        }
+
+        table.table-events {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table.table-events thead {
+            background: transparent linear-gradient(270deg, rgba(238, 130, 163, 0.25) 0%, rgba(255, 169, 83, 0.25) 100%) 0% 0% no-repeat padding-box;
+        }
+
+        table.table-events thead th {
+            font-family: 'Lato' !important;
+            font-weight: 700;
+            font-size: var(--fs-xs);
+            color: #6F003B;
+            padding: 13px 20px;
+            border: none;
+            white-space: nowrap;
+        }
+
+        table.table-events tbody tr {
+            border-bottom: 1px solid #fde8ea;
+            transition: background .15s;
+        }
+
+        table.table-events tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        table.table-events tbody tr:hover {
+            background: #fff1f2;
+        }
+
+        table.table-events tbody td {
+            font-family: 'Lato';
+            font-size: var(--fs-xs);
+            color: #1c1c1c;
+            font-weight: 400;
+            padding: 14px 20px;
+            border: none;
+            vertical-align: middle;
+        }
+
+        table.table-events tbody tr.odd {
+            background: #fff;
+        }
+
+        table.table-events tbody tr.even {
+            background: #fdfbfb;
+        }
+
+        table.table-events tbody td a.event-title-link {
+            font-family: 'Lato';
+            font-size: var(--fs-xs);
+            color: #8C3665;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        .tbl-status-badge {
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-family: 'Lato';
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="blob-bg-body">
+
+        <!-- ═══════════════════════════════════════════
+             HEADER
+        ════════════════════════════════════════════ -->
+        <section class="header-sec">
+            <div class="custom-container p-0">
+                <div class="brand-sec">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-xl-3 col-lg-12 d-flex justify-content-between align-items-center">
+                                <a class="brand" href="home.html">
+                                    <img class="brand-img" src="./images/landing-page/logo.png">
+                                    <p class="brand-txt">Planora.AI</p>
+                                </a>
+                                <button class="navbar-toggler d-xl-none border-0 p-0" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                                    <span class="navbar-toggler-icon">
+                                        <img src="./images/Assets_Organiser_Personna/Header and Footer/toggler.svg"
+                                            style="width: 30px;">
+                                    </span>
+                                </button>
+                            </div>
+
+                            <div class="col-xl-9">
+                                <div class="collapse navbar-collapse d-xl-flex justify-content-end align-items-center"
+                                    id="navbarNav">
+                                    <div class="d-xl-none text-end w-100">
+                                        <p class="welcome-txt">Welcome <span class="user-name">Haritha Rengarajan</span>
+                                        </p>
+                                        <button type="button" class="btn-close btn-close-white"
+                                            data-bs-toggle="collapse" data-bs-target="#navbarNav"></button>
+                                    </div>
+
+                                    <div class="global-nav-sec">
+                                        <ul>
+                                            <li><a class="global-nav-link" href="#">
+                                                    <img src="./images/Assets_Organiser_Personna/Header and Footer/help.svg"
+                                                        alt="">
+                                                    <span>Help</span></a>
+                                            </li>
+                                            <li><a class="global-nav-link" href="#">
+                                                    <img src="./images/Assets_Organiser_Personna/Header and Footer/notification_bell.svg"
+                                                        alt="">
+                                                    <span>Notification</span></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="user-details-sec">
+                                        <span class="user-icon-sec">
+                                            <img class="user-icon"
+                                                src="./images/Assets_Organiser_Personna/Header and Footer/profile.svg">
+                                        </span>
+                                        <span class="user-name">Haritha Rengarajan</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════
+             WELCOME + STATS
+        ════════════════════════════════════════════ -->
+        <section class="welcome-stats-sec">
+            <div class="custom-container">
+                <div class="container-fluid">
+
+                    <div class="row align-items-center">
+                        <div class="col-xl-4 col-lg-12 mb-3 mb-xl-0">
+                            <p class="welcome-heading">Welcome Haritha Rengarajan!</p>
+                            <p class="welcome-sub">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                ei usmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        </div>
+                        <div class="col-xl-8">
+                            <div class="welcome-card">
+                                <div class="d-flex align-items-center justify-content-around">
+                                    <div class="stat-item">
+                                        <p class="stat-number">200</p>
+                                        <div class="stat-label-row">
+                                            <img src="./images/Assets_Organiser_Personna/All Events and My Events/Total Events.svg"
+                                                alt="">
+                                            <p class="stat-label">Total Events</p>
+                                        </div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <p class="stat-number">80</p>
+                                        <div class="stat-label-row">
+                                            <img src="./images/Assets_Organiser_Personna/All Events and My Events/Completed Events.svg"
+                                                alt="">
+                                            <p class="stat-label">Events Completed</p>
+                                        </div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <p class="stat-number">120</p>
+                                        <div class="stat-label-row">
+                                            <img src="./images/Assets_Organiser_Personna/All Events and My Events/Upcoming Events.svg"
+                                                alt="">
+                                            <p class="stat-label">Upcoming Events</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════
+             SEARCH + EXPORT
+        ════════════════════════════════════════════ -->
+        <section class="action-bar-sec">
+            <div class="custom-container">
+                <div class="container-fluid">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="search-input-wrap">
+                            <img class="search-icon" src="./images/Assets_Organiser_Personna/Registrations/search.svg"
+                                alt="">
+                            <input type="text" id="eventsSearch" placeholder="Search">
+                        </div>
+                        <a href="#" class="export-btn">Export</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════
+             EVENTS PANEL (Tabs + View Toggle)
+        ════════════════════════════════════════════ -->
+        <section class="events-panel-sec">
+            <div class="custom-container">
+                <div class="container-fluid">
+                    <div class="events-panel">
+
+                        <!-- Tab Bar -->
+                        <div class="events-tab-bar">
+                            <ul class="events-tabs" id="eventsTabs">
+                                <li class="active" data-tab="my-events">
+                                    <a href="#">My Events</a>
+                                </li>
+                                <li data-tab="all-events">
+                                    <a href="#">All Events</a>
+                                </li>
+                            </ul>
+
+                            <!-- View Toggle -->
+                            <div class="view-toggle">
+                                <button class="view-toggle-btn" id="btnTableView" title="Table View">
+                                    <!-- Table / list icon -->
+                                    <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="2" y="4" width="16" height="2.5" rx="1" fill="#8C3665" />
+                                        <rect x="2" y="8.75" width="16" height="2.5" rx="1" fill="#8C3665" />
+                                        <rect x="2" y="13.5" width="16" height="2.5" rx="1" fill="#8C3665" />
+                                    </svg>
+                                </button>
+                                <div class="toggle-divider"></div>
+                                <button class="view-toggle-btn active" id="btnCardView" title="Card View">
+                                    <!-- Grid / card icon -->
+                                    <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="2" y="2" width="7" height="7" rx="1.5" fill="#8C3665" />
+                                        <rect x="11" y="2" width="7" height="7" rx="1.5" fill="#8C3665" />
+                                        <rect x="2" y="11" width="7" height="7" rx="1.5" fill="#8C3665" />
+                                        <rect x="11" y="11" width="7" height="7" rx="1.5" fill="#8C3665" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div><!-- /tab-bar -->
+
+
+                        <!-- ─────────────────────────────────────
+                             TAB: MY EVENTS
+                        ────────────────────────────────────── -->
+                        <div class="tab-content-panel active" id="tab-my-events">
+
+                            <!-- Card View -->
+                            <div class="view-panel active" id="my-events-card">
+                                <div class="row g-3" id="myEventsCardRow">
+                                    <!-- Card 1 -->
+                                    <div class="col-xl-3 col-lg-4 col-md-6 event-card-col" data-title="Convergence 2025"
+                                        data-type="Internal Event">
+                                        <a class="event-card" href="registrations.html">
+                                            <div class="event-card-img">
+                                                <div class="event-card-img-placeholder"></div>
+                                                <span class="event-status-badge badge-upcoming">Upcoming</span>
+                                            </div>
+                                            <div class="event-card-body">
+                                                <div class="event-card-meta">
+                                                    <img src="./images/Assets_Organiser_Personna/All Events and My Events/Event icon card.svg"
+                                                        alt="">
+                                                    <p>Convergence - 2025</p>
+                                                </div>
+                                                <div class="event-card-meta">
+                                                    <img src="./images/Assets_Organiser_Personna/All Events and My Events/Editor name card.svg"
+                                                        alt="">
+                                                    <p>Haritha Rengarajan</p>
+                                                </div>
+                                                <div class="event-card-meta">
+                                                    <img src="./images/Assets_Organiser_Personna/All Events and My Events/Location card.svg"
+                                                        alt="">
+                                                    <p>Internal Event</p>
+                                                </div>
+                                                <div class="event-card-meta">
+                                                    <img src="./images/Assets_Organiser_Personna/All Events and My Events/Calendar card.svg"
+                                                        alt="">
+                                                    <p>11/11/2025</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <!-- Card 2 -->
+                                    <div class="col-xl-3 col-lg-4 col-md-6 event-card-col"
+                                        data-title="Innovation Summit 2025" data-type="External Event">
+                                        <a class="event-card" href="registrations.html">
+                                            <div class="event-card-img">
+                                                <div class="event-card-img-placeholder"
+                                                    style="background: linear-gradient(135deg, #b05080 0%, #5a1040 100%);">
+                                                </div>
+                                                <span class="event-status-badge badge-inprogress">In progress</span>
+                                            </div>
+                                            <div class="event-card-body">
+                                                <div class="event-card-meta">
+                                                    <img src="./images/Assets_Organiser_Personna/All Events and My Events/Event icon card.svg"
+                                                        alt="">
+                                                    <p>Innovation Summit 2025</p>
+                                                </div>
+                                                <div class="event-card-meta">
+                                                    <img src="./images/Assets_Organiser_Personna/All Events and My Events/Editor name card.svg"
+                                                        alt="">
+                                                    <p>Haritha Rengarajan</p>
+                                                </div>
+                                                <div class="event-card-meta">
+                                                    <img src="./images/Assets_Organiser_Personna/All Events and My Events/Location card.svg"
+                                                        alt="">
+                                                    <p>External Event</p>
+                                                </div>
+                                                <div class="event-card-meta">
+                                                    <img src="./images/Assets_Organiser_Personna/All Events and My Events/Calendar card.svg"
+                                                        alt="">
+                                                    <p>11/11/2025</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <!-- Card 3 -->
+                                    <div class="col-xl-3 col-lg-4 col-md-6 event-card-col"
+                                        data-title="Leadership Connect" data-type="Internal Event">
+                                        <a class="event-card" href="registrations.html">
+                                            <div class="event-card-img">
+                                                <div class="event-card-img-placeholder"
+                                                    style="background: linear-gradient(135deg, #a07050 0%, #503020 100%);">
+                                                </div>
+                                                <span class="event-status-badge badge-completed">Completed</span>
+                                            </div>
+                                            <div class="event-card-body">
+                                                <div class="event-card-meta">
+                                                    <img src="./images/Assets_Organiser_Personna/All Events and My Events/Event icon card.svg"
+                                                        alt="">
+                                                    <p>Leadership Connect</p>
+                                                </div>
+                                                <div class="event-card-meta">
+                                                    <img src="./images/Assets_Organiser_Personna/All Events and My Events/Editor name card.svg"
+                                                        alt="">
+                                                    <p>Haritha Rengarajan</p>
+                                                </div>
+                                                <div class="event-card-meta">
+                                                    <img src="./images/Assets_Organiser_Personna/All Events and My Events/Location card.svg"
+                                                        alt="">
+                                                    <p>Internal Event</p>
+                                                </div>
+                                                <div class="event-card-meta">
+                                                    <img src="./images/Assets_Organiser_Personna/All Events and My Events/Calendar card.svg"
+                                                        alt="">
+                                                    <p>11/11/2025</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Table View -->
+                            <div class="view-panel" id="my-events-table">
+                                <div class="events-table-wrap table-responsive">
+                                    <table class="table mb-0 align-middle table-events" id="myEventsTable">
+                                        <thead>
+                                            <tr>
+                                                <th class="ps-3">Event Title</th>
+                                                <th>Created By</th>
+                                                <th>Event Date</th>
+                                                <th>Type of event</th>
+                                                <th class="pe-3">Event Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="odd">
+                                                <td class="ps-3"><a href="#" class="event-title-link">Convergence -
+                                                        2025</a></td>
+                                                <td>Haritha Rengarajan</td>
+                                                <td>11/11/2025</td>
+                                                <td>Internal Event</td>
+                                                <td class="pe-3"><span
+                                                        class="tbl-status-badge badge-upcoming">Upcoming</span></td>
+                                            </tr>
+                                            <tr class="even">
+                                                <td class="ps-3"><a href="#" class="event-title-link">Innovation Summit
+                                                        2025</a></td>
+                                                <td>Haritha Rengarajan</td>
+                                                <td>11/11/2025</td>
+                                                <td>External Event</td>
+                                                <td class="pe-3"><span
+                                                        class="tbl-status-badge badge-inprogress">Inprogress</span></td>
+                                            </tr>
+                                            <tr class="odd">
+                                                <td class="ps-3"><a href="#" class="event-title-link">Leadership
+                                                        Connect</a></td>
+                                                <td>Haritha Rengarajan</td>
+                                                <td>11/11/2025</td>
+                                                <td>Internal Event</td>
+                                                <td class="pe-3"><span
+                                                        class="tbl-status-badge badge-completed">Completed</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div><!-- /tab-my-events -->
+
+
+                        <!-- ─────────────────────────────────────
+                             TAB: ALL EVENTS
+                        ────────────────────────────────────── -->
+                        <div class="tab-content-panel" id="tab-all-events">
+
+                            <!-- Card View -->
+                            <div class="view-panel active" id="all-events-card">
+                                <div class="row g-3" id="allEventsCardRow">
+                                    <!-- Card 1 -->
+                                    <div class="col-xl-3 col-lg-4 col-md-6 event-card-col" data-title="Convergence 2025"
+                                        data-type="Internal Event">
+                                        <a class="event-card" href="registrations.html">
+                                            <div class="event-card-img">
+                                                <div class="event-card-img-placeholder"></div>
+                                                <span class="event-status-badge badge-upcoming">Upcoming</span>
+                                            </div>
+                                            <div class="event-card-body">
+                                                <div class="event-card-meta">
+                                                    <img src="./images/Assets_Organiser_Personna/All Events and My Events/Event icon card.svg"
+                                                        alt="">
+                                                    <p>Convergence - 2025</p>
+                                                </div>
+                                                <div class="event-card-meta">
+                                                    <img src="./images/Assets_Organiser_Personna/All Events and My Events/Editor name card.svg"
+                                                        alt="">
+                                                    <p>Arputharaj Samuvel</p>
+                                                </div>
+                                                <div class="event-card-meta">
+                                                    <img src="./images/Assets_Organiser_Personna/All Events and My Events/Location card.svg"
+                                                        alt="">
+                                                    <p>Internal Event</p>
+                                                </div>
+                                                <div class="event-card-meta">
+                                                    <img src="./images/Assets_Organiser_Personna/All Events and My Events/Calendar card.svg"
+                                                        alt="">
+                                                    <p>11/11/2025</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <!-- Card 2 -->
+                                    <div class="col-xl-3 col-lg-4 col-md-6 event-card-col"
+                                        data-title="Tech Forward 2025" data-type="External Event">
+                                        <a class="event-card" href="registrations.html">
+                                            <div class="event-card-img">
+                                                <div class="event-card-img-placeholder"
+                                                    style="background: linear-gradient(135deg, #507090 0%, #203050 100%);">
+                                                </div>
+                                                <span class="event-status-badge badge-inprogress">In progress</span>
+                                            </div>
+                                            <div class="event-card-body">
+                                                <div class="event-card-meta">
+                                                    <img src="./images/Assets_Organiser_Personna/All Events and My Events/Event icon card.svg"
+                                                        alt="">
+                                                    <p>Tech Forward 2025</p>
+                                                </div>
+                                                <div class="event-card-meta">
+                                                    <img src="./images/Assets_Organiser_Personna/All Events and My Events/Editor name card.svg"
+                                                        alt="">
+                                                    <p>Rishi Ramesh</p>
+                                                </div>
+                                                <div class="event-card-meta">
+                                                    <img src="./images/Assets_Organiser_Personna/All Events and My Events/Location card.svg"
+                                                        alt="">
+                                                    <p>External Event</p>
+                                                </div>
+                                                <div class="event-card-meta">
+                                                    <img src="./images/Assets_Organiser_Personna/All Events and My Events/Calendar card.svg"
+                                                        alt="">
+                                                    <p>11/11/2025</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <!-- Card 3 -->
+                                    <div class="col-xl-3 col-lg-4 col-md-6 event-card-col" data-title="AZ Connect 2025"
+                                        data-type="Internal Event">
+                                        <a class="event-card" href="registrations.html">
+                                            <div class="event-card-img">
+                                                <div class="event-card-img-placeholder"
+                                                    style="background: linear-gradient(135deg, #708050 0%, #304020 100%);">
+                                                </div>
+                                                <span class="event-status-badge badge-completed">Completed</span>
+                                            </div>
+                                            <div class="event-card-body">
+                                                <div class="event-card-meta">
+                                                    <img src="./images/Assets_Organiser_Personna/All Events and My Events/Event icon card.svg"
+                                                        alt="">
+                                                    <p>AZ Connect 2025</p>
+                                                </div>
+                                                <div class="event-card-meta">
+                                                    <img src="./images/Assets_Organiser_Personna/All Events and My Events/Editor name card.svg"
+                                                        alt="">
+                                                    <p>Priya Nair</p>
+                                                </div>
+                                                <div class="event-card-meta">
+                                                    <img src="./images/Assets_Organiser_Personna/All Events and My Events/Location card.svg"
+                                                        alt="">
+                                                    <p>Internal Event</p>
+                                                </div>
+                                                <div class="event-card-meta">
+                                                    <img src="./images/Assets_Organiser_Personna/All Events and My Events/Calendar card.svg"
+                                                        alt="">
+                                                    <p>11/11/2025</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <!-- Card 4 -->
+                                    <div class="col-xl-3 col-lg-4 col-md-6 event-card-col"
+                                        data-title="Pharma Insights 2025" data-type="External Event">
+                                        <a class="event-card" href="registrations.html">
+                                            <div class="event-card-img">
+                                                <div class="event-card-img-placeholder"
+                                                    style="background: linear-gradient(135deg, #905060 0%, #401020 100%);">
+                                                </div>
+                                                <span class="event-status-badge badge-upcoming">Upcoming</span>
+                                            </div>
+                                            <div class="event-card-body">
+                                                <div class="event-card-meta">
+                                                    <img src="./images/Assets_Organiser_Personna/All Events and My Events/Event icon card.svg"
+                                                        alt="">
+                                                    <p>Pharma Insights 2025</p>
+                                                </div>
+                                                <div class="event-card-meta">
+                                                    <img src="./images/Assets_Organiser_Personna/All Events and My Events/Editor name card.svg"
+                                                        alt="">
+                                                    <p>Karthik Sundaram</p>
+                                                </div>
+                                                <div class="event-card-meta">
+                                                    <img src="./images/Assets_Organiser_Personna/All Events and My Events/Location card.svg"
+                                                        alt="">
+                                                    <p>External Event</p>
+                                                </div>
+                                                <div class="event-card-meta">
+                                                    <img src="./images/Assets_Organiser_Personna/All Events and My Events/Calendar card.svg"
+                                                        alt="">
+                                                    <p>11/11/2025</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Table View -->
+                            <div class="view-panel" id="all-events-table">
+                                <div class="events-table-wrap table-responsive">
+                                    <table class="table mb-0 align-middle table-events" id="allEventsTable">
+                                        <thead>
+                                            <tr>
+                                                <th class="ps-3">Event Title</th>
+                                                <th>Created By</th>
+                                                <th>Event Date</th>
+                                                <th>Type of event</th>
+                                                <th class="pe-3">Event Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="odd">
+                                                <td class="ps-3"><a href="#" class="event-title-link">Convergence -
+                                                        2025</a></td>
+                                                <td>Arputharaj Samuvel</td>
+                                                <td>11/11/2025</td>
+                                                <td>Internal Event</td>
+                                                <td class="pe-3"><span
+                                                        class="tbl-status-badge badge-upcoming">Upcoming</span></td>
+                                            </tr>
+                                            <tr class="even">
+                                                <td class="ps-3"><a href="#" class="event-title-link">Tech Forward
+                                                        2025</a></td>
+                                                <td>Rishi Ramesh</td>
+                                                <td>11/11/2025</td>
+                                                <td>External Event</td>
+                                                <td class="pe-3"><span
+                                                        class="tbl-status-badge badge-inprogress">Inprogress</span></td>
+                                            </tr>
+                                            <tr class="odd">
+                                                <td class="ps-3"><a href="#" class="event-title-link">AZ Connect
+                                                        2025</a></td>
+                                                <td>Priya Nair</td>
+                                                <td>11/11/2025</td>
+                                                <td>Internal Event</td>
+                                                <td class="pe-3"><span
+                                                        class="tbl-status-badge badge-completed">Completed</span></td>
+                                            </tr>
+                                            <tr class="even">
+                                                <td class="ps-3"><a href="#" class="event-title-link">Pharma Insights
+                                                        2025</a></td>
+                                                <td>Karthik Sundaram</td>
+                                                <td>11/11/2025</td>
+                                                <td>External Event</td>
+                                                <td class="pe-3"><span
+                                                        class="tbl-status-badge badge-upcoming">Upcoming</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div><!-- /tab-all-events -->
+
+                    </div><!-- /events-panel -->
+                </div>
+            </div>
+        </section>
+
+    </section><!-- /blob-bg-body -->
+
+    <!-- ═══════════════════════════════════════════
+         FOOTER
+    ════════════════════════════════════════════ -->
+    <section class="footer-sec">
+        <div class="custom-container">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-sm-8">
+                        <p class="credits-txt">Powered by ECS | Hyperautomation</p>
+                    </div>
+                    <div class="col-sm-4 text-end">
+                        <img src="./images/Assets_Organiser_Personna/Header and Footer/footer-logo.svg"
+                            class="footer-logo">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        (function () {
+            // ─── Current view state ───────────────────────────────────────────
+            let currentView = 'card'; // 'card' | 'table'
+            let currentTab = 'my-events'; // 'my-events' | 'all-events'
+
+            // ─── Tab switching ────────────────────────────────────────────────
+            document.querySelectorAll('#eventsTabs li').forEach(function (li) {
+                li.querySelector('a').addEventListener('click', function (e) {
+                    e.preventDefault();
+                    // Deactivate all tabs
+                    document.querySelectorAll('#eventsTabs li').forEach(function (t) {
+                        t.classList.remove('active');
+                    });
+                    document.querySelectorAll('.tab-content-panel').forEach(function (p) {
+                        p.classList.remove('active');
+                    });
+                    // Activate clicked tab
+                    li.classList.add('active');
+                    currentTab = li.getAttribute('data-tab');
+                    document.getElementById('tab-' + currentTab).classList.add('active');
+                    // Restore correct view inside that tab
+                    setView(currentView);
+                    // Re-apply search filter
+                    filterCards(document.getElementById('eventsSearch').value);
+                });
+            });
+
+            // ─── View toggle ──────────────────────────────────────────────────
+            function setView(view) {
+                currentView = view;
+
+                // Toggle button active states
+                document.getElementById('btnCardView').classList.toggle('active', view === 'card');
+                document.getElementById('btnTableView').classList.toggle('active', view === 'table');
+
+                // Show/hide panels for ALL tabs (so state persists when switching)
+                ['my-events', 'all-events'].forEach(function (tab) {
+                    var cardPanel = document.getElementById(tab + '-card');
+                    var tablePanel = document.getElementById(tab + '-table');
+                    if (view === 'card') {
+                        cardPanel.classList.add('active');
+                        tablePanel.classList.remove('active');
+                    } else {
+                        tablePanel.classList.add('active');
+                        cardPanel.classList.remove('active');
+                    }
+                });
+            }
+
+            document.getElementById('btnCardView').addEventListener('click', function () {
+                setView('card');
+            });
+
+            document.getElementById('btnTableView').addEventListener('click', function () {
+                setView('table');
+            });
+
+            // ─── Search / filter ──────────────────────────────────────────────
+            function filterCards(query) {
+                var q = query.toLowerCase().trim();
+                var activeTabEl = document.getElementById('tab-' + currentTab);
+
+                // Card view filtering
+                activeTabEl.querySelectorAll('.event-card-col').forEach(function (col) {
+                    var title = (col.getAttribute('data-title') || '').toLowerCase();
+                    var type = (col.getAttribute('data-type') || '').toLowerCase();
+                    col.style.display = (title.includes(q) || type.includes(q)) ? '' : 'none';
+                });
+
+                // Table view filtering
+                activeTabEl.querySelectorAll('.table-events tbody tr').forEach(function (row) {
+                    var text = row.textContent.toLowerCase();
+                    row.style.display = text.includes(q) ? '' : 'none';
+                });
+            }
+
+            document.getElementById('eventsSearch').addEventListener('keyup', function () {
+                filterCards(this.value);
+            });
+
+        })();
+    </script>
+
+</body>
+
+</html>

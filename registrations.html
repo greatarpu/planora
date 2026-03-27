@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planora-form</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <!-- DataTables + jQuery -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <style>
+        .card-body {
+            padding: 24px !important;
+        }
+
+        .icon-number {
+            font-family: 'Lato';
+            font-weight: 700;
+            font-size: 32px;
+            color: #4A4A4A;
+            margin-left: 8px;
+        }
+
+        .icon-text {
+            font-family: 'Lato';
+            font-weight: 500;
+            font-size: var(--fs-xs);
+            color: #4A4A4A;
+        }
+
+        .stats-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .stats-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0.5rem 1rem rgba(128, 0, 64, 0.1) !important;
+        }
+
+        .placeholder-icon {
+            width: 32px;
+            /* Small icon size like in reference */
+            height: 32px;
+        }
+
+        /*datatable side*/
+        .page-wrapper {
+            font-family: 'Lato';
+            margin: 0 auto;
+        }
+
+        /* ── Top bar ── */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .search-wrap {
+            position: relative;
+            flex: 1;
+            max-width: 360px;
+        }
+
+        .search-wrap img {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+            width: 16px;
+            height: 16px;
+            pointer-events: none;
+        }
+
+        #globalSearch {
+            width: 100%;
+            padding: 10px 14px 10px 40px;
+            border-radius: 5px;
+            font-family: 'Lato';
+            font-size: 14px;
+            color: #1c1c1c;
+            background: #fff;
+            outline: none;
+            transition: border-color .2s, box-shadow .2s;
+            border: none;
+        }
+
+        #globalSearch::placeholder {
+            color: #6b7280;
+        }
+
+        #globalSearch:focus {
+            border-color: #fb7185;
+            box-shadow: 0 0 0 3px rgba(251, 113, 133, .12);
+        }
+
+
+        /* ── Card ── */
+        .card {
+            background: #fff;
+            border-radius: 3px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, .06), 0 4px 16px rgba(0, 0, 0, .04);
+            overflow: hidden;
+        }
+
+        /* ── Filter bar ── */
+        .filter-bar {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            padding: 12px 24px;
+            border-bottom: 1.5px solid #fde8ea;
+            flex-wrap: wrap;
+            background: #fff;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #1c1c1c;
+            white-space: nowrap;
+        }
+
+        .filter-select {
+            appearance: none;
+            -webkit-appearance: none;
+            padding: 8px 36px 8px 14px;
+            border: 0.800000011920929px solid #CACACA;
+            border-radius: 3px;
+            font-family: 'Lato';
+            font-size: 14px;
+            color: #1c1c1c;
+            background: #F8F8F8 url("./images/Assets_Organiser_Personna/Registrations/dropdown.svg") no-repeat right 12px center;
+            cursor: pointer;
+            outline: none;
+            min-width: 110px;
+            transition: border-color .2s;
+        }
+
+        .filter-select:focus {
+            border-color: #fb7185;
+        }
+
+        /* ── DataTable overrides ── */
+        #employeeTable_wrapper {
+            padding: 0;
+        }
+
+        /* Hide default DataTables search + length */
+        #employeeTable_filter,
+        #employeeTable_length {
+            display: none !important;
+        }
+
+        /* Pagination & info — bottom bar */
+        #employeeTable_info,
+        #employeeTable_paginate {
+            padding: 12px 24px;
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        #employeeTable_paginate .paginate_button {
+            padding: 4px 10px !important;
+            border-radius: 6px !important;
+            font-family: 'Lato' !important;
+            font-size: 13px !important;
+            color: #1c1c1c !important;
+            border: none !important;
+            cursor: pointer;
+            transition: background .15s;
+        }
+
+        #employeeTable_paginate .paginate_button.current,
+        #employeeTable_paginate .paginate_button.current:hover {
+            background: #ffe4e6 !important;
+            color: #be123c !important;
+            font-weight: 600 !important;
+            border: none !important;
+        }
+
+        #employeeTable_paginate .paginate_button:hover:not(.current):not(.disabled) {
+            background: #fff1f2 !important;
+            color: #1c1c1c !important;
+        }
+
+        #employeeTable_paginate .paginate_button.disabled {
+            opacity: .35 !important;
+            cursor: default;
+        }
+
+        /* Table itself */
+        table#employeeTable {
+            width: 100% !important;
+            border-collapse: collapse;
+        }
+
+        table#employeeTable thead th {
+            font-family: 'Lato';
+            font-size: 13px;
+            font-weight: 600;
+            padding: 13px 20px;
+            border: none;
+            text-align: left;
+            white-space: nowrap;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        table#employeeTable thead {
+            background: transparent linear-gradient(270deg, rgba(238, 130, 163, 0.25) 0%, rgba(255, 169, 83, 0.25) 100%) 0% 0% no-repeat padding-box;
+            font-family: 'Lato' !important;
+            font-weight: 700;
+            font-size: var(--fs-sm);
+            color: #6F003B;
+        }
+
+        table#employeeTable thead th {
+            background: transparent !important;
+            font-family: 'Lato' !important;
+            font-weight: 700;
+            font-size: var(--fs-xs);
+            color: #6F003B;
+        }
+
+        table#employeeTable tbody td.sorting_1 {
+            box-shadow: none !important;
+            background-color: inherit !important;
+        }
+
+        /* Remove default DataTables sort arrows; add custom */
+        table#employeeTable thead th.sorting::after,
+        table#employeeTable thead th.sorting_asc::after,
+        table#employeeTable thead th.sorting_desc::after {
+            content: '';
+        }
+
+        table#employeeTable thead th.sorting::before,
+        table#employeeTable thead th.sorting_asc::before,
+        table#employeeTable thead th.sorting_desc::before {
+            content: '';
+        }
+
+        table#employeeTable thead th {
+            background-image: none !important;
+        }
+
+        /* Body rows */
+        table#employeeTable tbody tr {
+            border-bottom: 1px solid #fde8ea;
+            transition: background .15s;
+        }
+
+        table#employeeTable tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        table#employeeTable tbody tr:hover {
+            background: #fff1f2;
+        }
+
+        table#employeeTable tbody td {
+            font-size: 14px;
+            font-weight: 400;
+            color: #1c1c1c;
+            padding: 15px 20px;
+            border: none;
+            vertical-align: middle;
+        }
+
+        /* Odd/even subtle stripe */
+        table#employeeTable tbody tr.odd {
+            background: #fff;
+        }
+
+        table#employeeTable tbody tr.even {
+            background: #fdfbfb;
+        }
+
+        table#employeeTable tbody tr.odd:hover,
+        table#employeeTable tbody tr.even:hover {
+            background: #fff1f2;
+        }
+
+        /* Badge-style cells */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .badge-yes {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .badge-no {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .badge-veg {
+            background: #f0fdf4;
+            color: #16a34a;
+        }
+
+        .badge-nonveg {
+            background: #fff7ed;
+            color: #c2410c;
+        }
+
+        /* Dot indicator */
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .dot-green {
+            background: #22c55e;
+        }
+
+        .dot-orange {
+            background: #f97316;
+        }
+
+        .dot-red {
+            background: #ef4444;
+        }
+
+        /* Bottom bar */
+        .bottom-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding: 0 8px;
+            border-top: 1.5px solid #fde8ea;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .filter-bar {
+                gap: 14px;
+            }
+
+            table#employeeTable thead th,
+            table#employeeTable tbody td {
+                padding: 11px 12px;
+                font-size: 12px;
+            }
+
+            .top-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-wrap {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section class="blob-bg-body">
+        <section class="header-sec">
+            <div class="custom-container p-0">
+                <div class="brand-sec">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-xl-3 col-lg-12 d-flex justify-content-between align-items-center">
+                                <a class="brand" href="home.html">
+                                    <img class="brand-img" src="./images/landing-page/logo.png">
+                                    <p class="brand-txt">Planora.AI</p>
+                                </a>
+
+                                <button class="navbar-toggler d-xl-none border-0 p-0" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                                    <span class="navbar-toggler-icon">
+                                        <img src="./images/Assets_Organiser_Personna/Header and Footer/toggler.svg"
+                                            style="width: 30px;">
+                                    </span>
+                                </button>
+                            </div>
+
+                            <div class="col-xl-9">
+                                <div class="collapse navbar-collapse d-xl-flex justify-content-end align-items-center"
+                                    id="navbarNav">
+                                    <div class="d-xl-none text-end w-100">
+                                        <p class="welcome-txt">Welcome <span class="user-name">Ramesh, Rishi</span></p>
+                                        <button type="button" class="btn-close btn-close-white"
+                                            data-bs-toggle="collapse" data-bs-target="#navbarNav"></button>
+                                    </div>
+
+                                    <div class="global-nav-sec">
+                                        <ul>
+                                            <li><a class="global-nav-link" href="#"><img
+                                                        src="./images/Assets_Organiser_Personna/Header and Footer/home.svg"
+                                                        alt="">
+                                                    <span>Home</span></a></li>
+                                            <li><a class="global-nav-link" href="#"><img
+                                                        src="./images/Assets_Organiser_Personna/Header and Footer/ticket.svg"
+                                                        alt="">
+                                                    <span>My Tickets</span></a></li>
+                                            <li><a class="global-nav-link" href="#"><img
+                                                        src="./images/Assets_Organiser_Personna/Header and Footer/help.svg"
+                                                        alt="">
+                                                    <span>Help</span></a></li>
+                                            <li><a class="global-nav-link" href="#"><img
+                                                        src="./images/Assets_Organiser_Personna/Header and Footer/notification_bell.svg"
+                                                        alt="">
+                                                    <span>Notification</span></a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="user-details-sec">
+
+                                        <span class="user-icon-sec"><img class="user-icon"
+                                                src="./images/Assets_Organiser_Personna/Header and Footer/profile.svg"></span>
+                                        <span class="user-name">Samuvel, Arputharaj</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="navigation-sec">
+            <div class="custom-container p-0">
+                <div class="sec-nav-sec">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-xl-3 col-lg-12 d-flex align-items-center">
+                                <a class="back-icon-link" href="home.html">
+                                    <img class="back-icon"
+                                        src="./images/Assets_Organiser_Personna/Form Setup/back.svg"></a>
+                                <p class="page-name">Convergence 2026</p>
+
+
+                                <button class="navbar-toggler d-xl-none border-0 p-0" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                                    <span class="navbar-toggler-icon">
+                                        <img src="./images/Assets_Organiser_Personna/Header and Footer/toggler.svg" s
+                                            tyle="width: 30px;">
+                                    </span>
+                                </button>
+                            </div>
+
+                            <div class="col-xl-9">
+                                <div class="secondary-nav-wrapper" id="secondaryNav">
+                                    <div class="custom-container">
+                                        <ul class="secondary-nav-list">
+                                            <li>
+                                                <a href="#" class="nav-item">
+                                                    <img class="default"
+                                                        src="./images/Assets_Organiser_Personna/Event section bar/Dashboard inactive.svg"
+                                                        alt="">
+                                                    <img class="hover"
+                                                        src="./images/Assets_Organiser_Personna/Event section bar/Dashboard active.svg"
+                                                        alt="">
+                                                    <span>Dashboard</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="nav-item">
+                                                    <img class="default"
+                                                        src="./images/Assets_Organiser_Personna/Event section bar/Event info inactive.svg"
+                                                        alt="">
+                                                    <img class="hover"
+                                                        src="./images/Assets_Organiser_Personna/Event section bar/Event info active.svg"
+                                                        alt="">
+                                                    <span>Event Information</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="nav-item">
+                                                    <img class="default"
+                                                        src="./images/Assets_Organiser_Personna/Event section bar/Form setup inactive.svg"
+                                                        alt="">
+                                                    <img class="hover"
+                                                        src="./images/Assets_Organiser_Personna/Event section bar/Form setup active.svg"
+                                                        alt="">
+                                                    <span>Form Setup</span>
+                                                </a>
+                                            </li>
+                                            <li class="active">
+                                                <a href="#" class="nav-item">
+                                                    <img class="default"
+                                                        src="./images/Assets_Organiser_Personna/Event section bar/Registration inactive.svg"
+                                                        alt="">
+                                                    <img class="hover"
+                                                        src="./images/Assets_Organiser_Personna/Event section bar/Registration active.svg"
+                                                        alt="">
+                                                    <span>Registrations</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="blur-box-sec">
+            <div class="custom-container">
+                <div class="container-fluid">
+                    <div class="row align-items-center">
+                        <div class="col-sm-12">
+                            <div class="blur-box">
+                                <div class="blur-box-head">
+                                    <div class="container-fluid">
+                                        <div class="row align-items-center">
+                                            <div class="col-sm-6">
+                                                <p>Registration Form</p>
+                                            </div>
+                                            <div class="col-sm-6 d-flex justify-content-end">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="blur-box-body">
+
+                                    <div class="dash-panel-sec">
+                                        <div class="container-fluid py-4" style="background-color: #fdf2f5;">
+                                            <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-3">
+
+                                                <div class="col">
+                                                    <div class="card h-100 border-0 shadow-sm stats-card rounded-3">
+                                                        <div class="card-body d-flex align-items-center">
+                                                            <div class="d-flex flex-column align-items-center me-4">
+                                                                <img src="./images/Assets_Organiser_Personna/Registrations/Total.svg"
+                                                                    class="mb-1 placeholder-icon" alt="Total Icon">
+                                                                <small class="icon-text">Total</small>
+                                                            </div>
+                                                            <h2 class="icon-number">3000</h2>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col">
+                                                    <div class="card h-100 border-0 shadow-sm stats-card rounded-3">
+                                                        <div class="card-body d-flex align-items-center">
+                                                            <div class="d-flex flex-column align-items-center me-4">
+                                                                <img src="./images/Assets_Organiser_Personna/Registrations/Registered.svg"
+                                                                    class="mb-1 placeholder-icon" alt="Registered Icon">
+                                                                <small class="icon-text">Registered</small>
+                                                            </div>
+                                                            <h2 class="icon-number">120</h2>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col">
+                                                    <div class="card h-100 border-0 shadow-sm stats-card rounded-3">
+                                                        <div class="card-body d-flex align-items-center">
+                                                            <div class="d-flex flex-column align-items-center me-4">
+                                                                <img src="./images/Assets_Organiser_Personna/Registrations/Seats left.svg"
+                                                                    class="mb-1 placeholder-icon" alt="Seats Left Icon">
+                                                                <small class="icon-text">Seats
+                                                                    left</small>
+                                                            </div>
+                                                            <h2 class="icon-number">2920</h2>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col">
+                                                    <div class="card h-100 border-0 shadow-sm stats-card rounded-3">
+                                                        <div class="card-body d-flex align-items-center">
+                                                            <div class="d-flex flex-column align-items-center me-4">
+                                                                <img src="./images/Assets_Organiser_Personna/Registrations/Accepted.svg"
+                                                                    class="mb-1 placeholder-icon" alt="Accepted Icon">
+                                                                <small class="icon-text">Accepted</small>
+                                                            </div>
+                                                            <h2 class="icon-number">300</h2>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col">
+                                                    <div class="card h-100 border-0 shadow-sm stats-card rounded-3">
+                                                        <div class="card-body d-flex align-items-center">
+                                                            <div class="d-flex flex-column align-items-center me-4">
+                                                                <img src="./images/Assets_Organiser_Personna/Registrations/Declined.svg"
+                                                                    class="mb-1 placeholder-icon" alt="Declined Icon">
+                                                                <small class="icon-text">Declined</small>
+                                                            </div>
+                                                            <h2 class="icon-number">300</h2>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="dash-table-sec">
+                                        <div class="page-wrapper">
+
+                                            <!-- Top bar: Search + Export -->
+                                            <div class="top-bar">
+                                                <div class="search-wrap">
+                                                    <img
+                                                        src="./images/Assets_Organiser_Personna/Registrations/search large.svg">
+                                                    <input type="text" id="globalSearch" placeholder="Search"
+                                                        autocomplete="off" />
+                                                </div>
+                                                <button class="export-btn" id="btnExport">Export</button>
+                                            </div>
+
+                                            <!-- Card -->
+                                            <div class="card">
+
+                                                <!-- Filters -->
+                                                <div class="filter-bar">
+                                                    <div class="filter-group">
+                                                        <span class="filter-label">Food Preference</span>
+                                                        <select class="filter-select" id="filterFood">
+                                                            <option value="">All</option>
+                                                            <option value="Veg">Veg</option>
+                                                            <option value="Non Veg">Non Veg</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="filter-group">
+                                                        <span class="filter-label">Transport required</span>
+                                                        <select class="filter-select" id="filterTransport">
+                                                            <option value="">All</option>
+                                                            <option value="Yes">Yes</option>
+                                                            <option value="No">No</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <!-- DataTable -->
+                                                <table id="employeeTable" class="display">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Employee Name</th>
+                                                            <th>PRID</th>
+                                                            <th>Food required?</th>
+                                                            <th>Food Preference</th>
+                                                            <th>Transport required?</th>
+                                                            <th>Pick-up location</th>
+                                                            <th>Drop location</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Aiswarya G R</td>
+                                                            <td>az12345@astrazeneca.net</td>
+                                                            <td>Yes</td>
+                                                            <td>Veg</td>
+                                                            <td>Yes</td>
+                                                            <td>Office</td>
+                                                            <td>Home</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Gowtham Muthuchezhian</td>
+                                                            <td>az12345@astrazeneca.net</td>
+                                                            <td>Yes</td>
+                                                            <td>Non Veg</td>
+                                                            <td>Yes</td>
+                                                            <td>Office</td>
+                                                            <td>Office</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Raja Gopal</td>
+                                                            <td>az33445@astrazeneca.net</td>
+                                                            <td>Yes</td>
+                                                            <td>Non Veg</td>
+                                                            <td>No</td>
+                                                            <td>Home</td>
+                                                            <td>Office</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Anand, A</td>
+                                                            <td>az33435@astrazeneca.net</td>
+                                                            <td>Yes</td>
+                                                            <td>Non Veg</td>
+                                                            <td>Yes</td>
+                                                            <td>Office</td>
+                                                            <td>Office</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Haritha Rengarajan</td>
+                                                            <td>az12345@astrazeneca.net</td>
+                                                            <td>Yes</td>
+                                                            <td>Non Veg</td>
+                                                            <td>Yes</td>
+                                                            <td>Office</td>
+                                                            <td>Home</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Arputharaj Samuvel</td>
+                                                            <td>az12345@astrazeneca.net</td>
+                                                            <td>Yes</td>
+                                                            <td>Non Veg</td>
+                                                            <td>Yes</td>
+                                                            <td>Office</td>
+                                                            <td>Office</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Rishi Ramesh</td>
+                                                            <td>az12345@astrazeneca.net</td>
+                                                            <td>Yes</td>
+                                                            <td>Veg</td>
+                                                            <td>Yes</td>
+                                                            <td>Home</td>
+                                                            <td>Home</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Priya Nair</td>
+                                                            <td>az67890@astrazeneca.net</td>
+                                                            <td>No</td>
+                                                            <td>Veg</td>
+                                                            <td>No</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Karthik Sundaram</td>
+                                                            <td>az11223@astrazeneca.net</td>
+                                                            <td>Yes</td>
+                                                            <td>Non Veg</td>
+                                                            <td>No</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Meena Krishnamurthy</td>
+                                                            <td>az33445@astrazeneca.net</td>
+                                                            <td>Yes</td>
+                                                            <td>Veg</td>
+                                                            <td>Yes</td>
+                                                            <td>Home</td>
+                                                            <td>Office</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Gowtham Muthuchezhian</td>
+                                                            <td>az33445@astrazeneca.net</td>
+                                                            <td>Yes</td>
+                                                            <td>Non Veg</td>
+                                                            <td>No</td>
+                                                            <td>Home</td>
+                                                            <td>Office</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Arputharaj Samuvel</td>
+                                                            <td>az33435@astrazeneca.net</td>
+                                                            <td>Yes</td>
+                                                            <td>Non Veg</td>
+                                                            <td>Yes</td>
+                                                            <td>Office</td>
+                                                            <td>Office</td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+
+                                                <div class="bottom-bar">
+                                                    <!-- DataTables injects info + paginate here automatically -->
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+    </section>
+
+    <section class="footer-sec">
+        <div class="custom-container">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-sm-6">
+                        <p class="credits-txt">Powered by ECS Hyper Automation</p>
+                    </div>
+                    <div class="col-sm-6 text-end"><img
+                            src="./images/Assets_Organiser_Personna/Header and Footer/footer-logo.svg"
+                            class="footer-logo">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        $(document).ready(function () {
+
+            // ── Init DataTable ──────────────────────────────────────────────
+            const table = $('#employeeTable').DataTable({
+                pageLength: 10,
+                lengthChange: false,
+                searching: true,
+                ordering: true,
+                info: true,
+                autoWidth: false,
+                // Move info + paginate into our bottom-bar
+                dom: '<"bottom-bar"ip>t',
+
+                // Custom cell rendering
+                columnDefs: [
+                    {
+                        targets: 2, // Food required
+                        render: function (data) {
+                            const cls = data === 'Yes' ? 'badge-yes' : 'badge-no';
+                            const dot = data === 'Yes' ? 'dot-green' : 'dot-red';
+                            return `<span class="badge ${cls}"><span class="dot ${dot}"></span>${data}</span>`;
+                        }
+                    },
+                    {
+                        targets: 3, // Food Preference
+                        render: function (data) {
+                            const cls = data === 'Veg' ? 'badge-veg' : 'badge-nonveg';
+                            const dot = data === 'Veg' ? 'dot-green' : 'dot-orange';
+                            return `<span class="badge ${cls}"><span class="dot ${dot}"></span>${data}</span>`;
+                        }
+                    },
+                    {
+                        targets: 4, // Transport required
+                        render: function (data) {
+                            const cls = data === 'Yes' ? 'badge-yes' : 'badge-no';
+                            const dot = data === 'Yes' ? 'dot-green' : 'dot-red';
+                            return `<span class="badge ${cls}"><span class="dot ${dot}"></span>${data}</span>`;
+                        }
+                    }
+                ]
+            });
+
+            // ── Global search passthrough ───────────────────────────────────
+            $('#globalSearch').on('keyup', function () {
+                table.search(this.value).draw();
+            });
+
+            // ── Column filters ──────────────────────────────────────────────
+            // Food Preference → column index 3
+            $('#filterFood').on('change', function () {
+                table.column(3).search(this.value).draw();
+            });
+
+            // Transport required → column index 4
+            $('#filterTransport').on('change', function () {
+                table.column(4).search(this.value).draw();
+            });
+
+            // ── Export (CSV) ────────────────────────────────────────────────
+            $('#btnExport').on('click', function () {
+                const rows = table.rows({ search: 'applied' }).data().toArray();
+                const headers = ['Employee Name', 'PRID', 'Food Required', 'Food Preference', 'Transport Required', 'Pick-up Location', 'Drop Location'];
+
+                // Strip HTML tags from cell content
+                function stripHtml(html) {
+                    const tmp = document.createElement('div');
+                    tmp.innerHTML = html;
+                    return tmp.textContent || tmp.innerText || '';
+                }
+
+                const csvRows = [headers.join(',')];
+                rows.forEach(row => {
+                    const clean = row.map(cell => `"${stripHtml(String(cell)).replace(/"/g, '""')}"`);
+                    csvRows.push(clean.join(','));
+                });
+
+                const blob = new Blob([csvRows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'employee_event_registrations.csv';
+                a.click();
+                URL.revokeObjectURL(url);
+            });
+
+        });
+    </script>
+</body>
+
+
+
+
+</html>
