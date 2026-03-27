@@ -707,117 +707,116 @@ img.footer-logo {
         display: flex;
         align-items: center;
     }
+}
 
-    /* --- Desktop & Laptop (XL Screens) --- */
-    @media (min-width: 1200px) {
-        .navbar-collapse {
-            display: flex !important;
-            position: static;
-            /* Resets the fixed position from mobile */
-            height: auto;
-            width: auto;
-            background-color: transparent;
-            box-shadow: none;
-            right: auto;
-            visibility: visible;
-            opacity: 1;
-        }
-
-        .mobile-menu-header {
-            display: none !important;
-            /* Hide Close button on desktop */
-        }
+/* --- Desktop & Laptop (XL Screens) --- */
+@media (min-width: 1200px) {
+    .navbar-collapse {
+        display: flex !important;
+        position: static;
+        /* Resets the fixed position from mobile */
+        height: auto;
+        width: auto;
+        background-color: transparent;
+        box-shadow: none;
+        right: auto;
+        visibility: visible;
+        opacity: 1;
     }
 
-    /* --- Tablet & Mobile (Slide-in Menu) --- */
-    @media (max-width: 1199px) {
-        .navbar-collapse {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            /* Hidden by default */
-            width: 70%;
-            height: 100vh;
-            background-color: #6F2754;
-            z-index: 9999;
-            transition: right 0.4s ease-in-out;
-            display: flex !important;
-            flex-direction: column;
-            box-shadow: -10px 0 20px rgba(0, 0, 0, 0.3);
-        }
+    .mobile-menu-header {
+        display: none !important;
+        /* Hide Close button on desktop */
+    }
+}
 
-        .collapsible-sidebar {
-            padding: 20px;
-        }
-
-        #navbarNav {
-            padding: 0px !important;
-        }
-
-        .global-nav-sec ul {
-            border-top: solid 1px #fff;
-        }
-
-        .global-nav-link {
-            padding-left: 20px !important;
-            padding-right: 20px !important;
-        }
-
-        /* Bootstrap adds this class when toggled */
-        .navbar-collapse.show {
-            right: 0;
-            justify-content: flex-start !important;
-        }
-
-        .global-nav-sec {
-            width: 100%;
-        }
-
-        .global-nav-sec ul {
-            flex-direction: column;
-            align-items: flex-start;
-            width: 100%;
-        }
-
-        .global-nav-sec ul li {
-            width: 100%;
-        }
-
-        .global-nav-sec ul li a {
-            width: 100%;
-        }
-
-        .global-nav-link {
-            width: 100%;
-            padding: 15px 0;
-        }
-
-        .global-nav-link span,
-        .user-name {
-            display: inline !important;
-        }
-
-        .global-nav-link img {
-            margin-right: 8px;
-        }
-
-        .header-sec {
-            padding-left: 12px !important;
-            padding-right: 12px !important;
-        }
-
-        .footer-sec {
-            padding-left: 12px !important;
-            padding-right: 12px !important;
-        }
-
-        .credits-txt {
-            font-size: 12px !important;
-        }
-
-        img.footer-logo {
-            height: 20px !important;
-        }
+/* --- Tablet & Mobile (Slide-in Menu) --- */
+@media (max-width: 1199px) {
+    .navbar-collapse {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        /* Hidden by default */
+        width: 70%;
+        height: 100vh;
+        background-color: #6F2754;
+        z-index: 9999;
+        transition: right 0.4s ease-in-out;
+        display: flex !important;
+        flex-direction: column;
+        box-shadow: -10px 0 20px rgba(0, 0, 0, 0.3);
     }
 
+    .collapsible-sidebar {
+        padding: 20px;
+    }
 
+    #navbarNav {
+        padding: 0px !important;
+    }
+
+    .global-nav-sec ul {
+        border-top: solid 1px #fff;
+    }
+
+    .global-nav-link {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+
+    /* Bootstrap adds this class when toggled */
+    .navbar-collapse.show {
+        right: 0;
+        justify-content: flex-start !important;
+    }
+
+    .global-nav-sec {
+        width: 100%;
+    }
+
+    .global-nav-sec ul {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .global-nav-sec ul li {
+        width: 100%;
+    }
+
+    .global-nav-sec ul li a {
+        width: 100%;
+    }
+
+    .global-nav-link {
+        width: 100%;
+        padding: 15px 0;
+    }
+
+    .global-nav-link span,
+    .user-name {
+        display: inline !important;
+    }
+
+    .global-nav-link img {
+        margin-right: 8px;
+    }
+
+    .header-sec {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    .footer-sec {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    .credits-txt {
+        font-size: 12px !important;
+    }
+
+    img.footer-logo {
+        height: 20px !important;
+    }
+}
