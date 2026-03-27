@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="217" height="171" viewBox="0 0 217 171">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.097" y1="0.316" x2="0.902" y2="0.673" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#43ae71"/>
+      <stop offset="1" stop-color="#046c30"/>
+    </linearGradient>
+  </defs>
+  <g id="Success" transform="translate(-84 -135)">
+    <circle id="Ellipse_4" data-name="Ellipse 4" cx="60" cy="60" r="60" transform="translate(135 156)" fill="url(#linear-gradient)"/>
+    <g id="Iconly_Bold_Tick-Square" data-name="Iconly/Bold/Tick-Square" transform="translate(173 194)">
+      <g id="Tick-Square" transform="translate(2 2)">
+        <path id="Path_6541" data-name="Path 6541" d="M28.68,0C35.46,0,40,4.76,40,11.84h0V28.182C40,35.24,35.46,40,28.68,40H11.34C4.56,40,0,35.24,0,28.182H0V11.84C0,4.76,4.56,0,11.34,0H28.68Zm-.32,14a1.762,1.762,0,0,0-2.48,0h0l-8.26,8.26-3.5-3.5a1.754,1.754,0,0,0-2.48,2.48h0l4.76,4.74a1.763,1.763,0,0,0,2.46,0h0l9.5-9.5A1.762,1.762,0,0,0,28.36,14Z" transform="translate(0 0)" fill="#fff"/>
+      </g>
+    </g>
+    <circle id="Ellipse_5" data-name="Ellipse 5" cx="10" cy="10" r="10" transform="translate(105 156)" fill="#238f47" opacity="0.3"/>
+    <circle id="Ellipse_6" data-name="Ellipse 6" cx="8" cy="8" r="8" transform="translate(285 206)" fill="#238f47" opacity="0.3"/>
+    <circle id="Ellipse_7" data-name="Ellipse 7" cx="8" cy="8" r="8" transform="translate(84 246)" fill="#238f47" opacity="0.3"/>
+    <circle id="Ellipse_8" data-name="Ellipse 8" cx="4" cy="4" r="4" transform="translate(202 135)" fill="#57bf7a"/>
+    <circle id="Ellipse_9" data-name="Ellipse 9" cx="5.5" cy="5.5" r="5.5" transform="translate(202 295)" fill="#57bf7a"/>
+    <circle id="Ellipse_10" data-name="Ellipse 10" cx="3" cy="3" r="3" transform="translate(262 265)" fill="#36774c"/>
+    <circle id="Ellipse_11" data-name="Ellipse 11" cx="2" cy="2" r="2" transform="translate(132 265)" fill="#36774c"/>
+    <circle id="Ellipse_12" data-name="Ellipse 12" cx="4" cy="4" r="4" transform="translate(107 208)" fill="#57bf7a"/>
+    <circle id="Ellipse_13" data-name="Ellipse 13" cx="2" cy="2" r="2" transform="translate(277 168)" fill="#36774c"/>
+  </g>
+</svg>

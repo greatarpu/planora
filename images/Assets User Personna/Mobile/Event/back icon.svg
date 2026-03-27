@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <g id="back_icon" data-name="back icon" transform="translate(-15 -36)">
+    <g id="Rectangle_4073" data-name="Rectangle 4073" transform="translate(15 36)" fill="#fff" stroke="#e7d6d9" stroke-width="0.5">
+      <rect width="32" height="32" rx="16" stroke="none"/>
+      <rect x="0.25" y="0.25" width="31.5" height="31.5" rx="15.75" fill="none"/>
+    </g>
+    <g id="Iconly_Light-Outline_Arrow---Right-2" data-name="Iconly/Light-Outline/Arrow---Right-2" transform="translate(25.643 45.143)">
+      <g id="Arrow---Right-2" transform="translate(0 13.714) rotate(-90)">
+        <path id="Stroke-1" d="M.194,7.326a.664.664,0,0,0,.864.064l.074-.064L6.857,1.6l5.724,5.724a.664.664,0,0,0,.864.064l.074-.064a.664.664,0,0,0,.064-.864l-.064-.074L7.326.194A.664.664,0,0,0,6.462.13L6.388.194.194,6.388A.664.664,0,0,0,.194,7.326Z" transform="translate(0)" fill="#8c3665" stroke="#8c3665" stroke-width="1"/>
+      </g>
+    </g>
+  </g>
+</svg>

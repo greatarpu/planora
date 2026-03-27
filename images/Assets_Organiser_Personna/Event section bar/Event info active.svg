@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">
+  <g id="Event_active" data-name="Event active" transform="translate(-2 -1.999)">
+    <g id="Info-Square" transform="translate(2 1.999)">
+      <path id="Path_5359" data-name="Path 5359" d="M15.774,0C19.5,0,22,2.618,22,6.512h0V15.5c0,3.883-2.5,6.5-6.226,6.5H6.237C2.508,22,0,19.383,0,15.5H0V6.512C0,2.618,2.508,0,6.237,0h9.537ZM10.989,9.329a.966.966,0,0,0-.957.968h0v4.862a.963.963,0,0,0,1.925,0h0V10.3A.969.969,0,0,0,10.989,9.329Zm.022-3.487a.963.963,0,1,0,.957.968A.962.962,0,0,0,11.011,5.842Z" transform="translate(0 0)" fill="#e3cddb"/>
+    </g>
+  </g>
+</svg>

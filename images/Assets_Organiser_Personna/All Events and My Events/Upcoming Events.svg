@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="26" height="26" viewBox="0 0 26 26">
+  <defs>
+    <filter id="Fill-1" x="0" y="0" width="26" height="26" filterUnits="userSpaceOnUse">
+      <feOffset dy="2" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="1" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Upcoming_Events" data-name="Upcoming Events" transform="translate(1 -1)">
+    <g id="Time-Circle" transform="translate(2 2)">
+      <g transform="matrix(1, 0, 0, 1, -3, -1)" filter="url(#Fill-1)">
+        <path id="Fill-1-2" data-name="Fill-1" d="M20,10A10,10,0,1,1,10,0,10,10,0,0,1,20,10" transform="translate(3 1)" fill="#f58c00" opacity="0.4"/>
+      </g>
+      <path id="Fill-4" d="M13.574,13.814a.756.756,0,0,1-.384-.1L9.264,11.368a.754.754,0,0,1-.365-.645V5.675a.75.75,0,1,1,1.5,0V10.3l3.56,2.123a.75.75,0,0,1-.385,1.395" fill="#c07004"/>
+    </g>
+  </g>
+</svg>

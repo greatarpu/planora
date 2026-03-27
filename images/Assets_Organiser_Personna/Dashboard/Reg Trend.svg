@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="280" height="93.25" viewBox="0 0 280 93.25">
+  <g id="Reg_Trend" data-name="Reg Trend" transform="translate(-0.168 -7)">
+    <g id="Chart" transform="translate(2.161 7)">
+      <g id="m1" transform="translate(0)">
+        <path id="Path_5428" data-name="Path 5428" d="M0,78.076,24.455,46.846l24.455,6.006L73.366,78.076,97.821,55.254l24.455-27.627,24.455,31.231L171.187,40.84l24.455-19.219L220.1,27.627l24.455,14.414L269.008,0" transform="translate(3.632 3.842)" fill="none" stroke="#afafaf" stroke-width="1.5"/>
+        <g id="Marks">
+          <circle id="Ellipse_4" data-name="Ellipse 4" cx="3.986" cy="3.986" r="3.986" transform="translate(0 77)" fill="#9b346b"/>
+          <circle id="Ellipse_5" data-name="Ellipse 5" cx="3.986" cy="3.986" r="3.986" transform="translate(25.513 46.568)" fill="#9b346b"/>
+          <circle id="Ellipse_6" data-name="Ellipse 6" cx="3.986" cy="3.986" r="3.986" transform="translate(48.954 52.574)" fill="#9b346b"/>
+          <circle id="Ellipse_7" data-name="Ellipse 7" cx="3.986" cy="3.986" r="3.986" transform="translate(73.409 77.799)" fill="#9b346b"/>
+          <circle id="Ellipse_8" data-name="Ellipse 8" cx="3.986" cy="3.986" r="3.986" transform="translate(97.865 54.977)" fill="#9b346b"/>
+          <circle id="Ellipse_9" data-name="Ellipse 9" cx="3.986" cy="3.986" r="3.986" transform="translate(122.32 27.35)" fill="#9b346b"/>
+          <circle id="Ellipse_10" data-name="Ellipse 10" cx="3.986" cy="3.986" r="3.986" transform="translate(146.775 58.58)" fill="#9b346b"/>
+          <circle id="Ellipse_11" data-name="Ellipse 11" cx="3.986" cy="3.986" r="3.986" transform="translate(171.231 40.562)" fill="#9b346b"/>
+          <circle id="Ellipse_12" data-name="Ellipse 12" cx="3.986" cy="3.986" r="3.986" transform="translate(195.686 21.344)" fill="#9b346b"/>
+          <circle id="Ellipse_13" data-name="Ellipse 13" cx="3.986" cy="3.986" r="3.986" transform="translate(220.141 27.35)" fill="#9b346b"/>
+          <circle id="Ellipse_14" data-name="Ellipse 14" cx="3.986" cy="3.986" r="3.986" transform="translate(243.582 41.764)" fill="#9b346b"/>
+          <circle id="Ellipse_15" data-name="Ellipse 15" cx="3.986" cy="3.986" r="3.986" transform="translate(269.039)" fill="#9b346b"/>
+        </g>
+      </g>
+    </g>
+    <g id="X_Axis_Line" data-name="X Axis Line" transform="translate(0.168 100)">
+      <line id="Line_15" data-name="Line 15" x2="280" fill="none" stroke="#cfcfcf" stroke-width="0.5"/>
+    </g>
+  </g>
+</svg>

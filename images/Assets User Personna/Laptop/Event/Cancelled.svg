@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="217" height="171" viewBox="0 0 217 171">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.097" y1="0.316" x2="1.072" y2="0.777" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ea9090"/>
+      <stop offset="1" stop-color="#ac1111"/>
+    </linearGradient>
+  </defs>
+  <g id="Cancelled" transform="translate(-84 -135)">
+    <circle id="Ellipse_4" data-name="Ellipse 4" cx="60" cy="60" r="60" transform="translate(135 156)" fill="url(#linear-gradient)"/>
+    <circle id="Ellipse_5" data-name="Ellipse 5" cx="10" cy="10" r="10" transform="translate(105 156)" fill="#8f2323" opacity="0.3"/>
+    <circle id="Ellipse_6" data-name="Ellipse 6" cx="8" cy="8" r="8" transform="translate(285 206)" fill="#8f2323" opacity="0.3"/>
+    <circle id="Ellipse_7" data-name="Ellipse 7" cx="8" cy="8" r="8" transform="translate(84 246)" fill="#8f2323" opacity="0.3"/>
+    <circle id="Ellipse_8" data-name="Ellipse 8" cx="4" cy="4" r="4" transform="translate(202 135)" fill="#bf5757"/>
+    <circle id="Ellipse_9" data-name="Ellipse 9" cx="5.5" cy="5.5" r="5.5" transform="translate(202 295)" fill="#bf5757"/>
+    <circle id="Ellipse_10" data-name="Ellipse 10" cx="3" cy="3" r="3" transform="translate(262 265)" fill="#773636"/>
+    <circle id="Ellipse_11" data-name="Ellipse 11" cx="2" cy="2" r="2" transform="translate(132 265)" fill="#773636"/>
+    <circle id="Ellipse_12" data-name="Ellipse 12" cx="4" cy="4" r="4" transform="translate(107 208)" fill="#bf5757"/>
+    <circle id="Ellipse_13" data-name="Ellipse 13" cx="2" cy="2" r="2" transform="translate(277 168)" fill="#773636"/>
+    <g id="Iconly_Bold_Close-Square" data-name="Iconly/Bold/Close-Square" transform="translate(173 194.001)">
+      <g id="Close-Square" transform="translate(2 1.999)">
+        <path id="Path_6546" data-name="Path 6546" d="M28.68,0C35.46,0,40,4.76,40,11.84h0V28.182C40,35.242,35.46,40,28.68,40H11.34C4.56,40,0,35.242,0,28.182H0V11.84C0,4.76,4.56,0,11.34,0H28.68ZM26.02,13.942a1.759,1.759,0,0,0-2.48,0h0L20,17.5l-3.56-3.558a1.753,1.753,0,1,0-2.48,2.478h0l3.56,3.562-3.56,3.54a1.76,1.76,0,0,0,0,2.478,1.779,1.779,0,0,0,1.24.522A1.744,1.744,0,0,0,16.44,26h0L20,22.462,23.56,26a1.646,1.646,0,0,0,1.22.522,1.751,1.751,0,0,0,1.24-2.98h0l-3.56-3.56,3.56-3.562A1.76,1.76,0,0,0,26.02,13.942Z" transform="translate(0 0)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

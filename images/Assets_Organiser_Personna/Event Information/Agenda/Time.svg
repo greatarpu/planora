@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <g id="Time" transform="translate(-2 -2)">
+    <g id="Time-Circle" transform="translate(2 2)">
+      <path id="Fill-1" d="M20,10A10,10,0,1,1,10,0,10,10,0,0,1,20,10" fill="#c24788" opacity="0.4"/>
+      <path id="Fill-4" d="M13.574,13.814a.756.756,0,0,1-.384-.1L9.264,11.367a.754.754,0,0,1-.365-.645V5.675a.75.75,0,0,1,1.5,0V10.3l3.56,2.123a.75.75,0,0,1-.385,1.395" transform="translate(0 0)" fill="#c24788"/>
+    </g>
+  </g>
+</svg>

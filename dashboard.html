@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planora - Dashboard</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+
+        /* ── Dashboard Widget Card ── */
+        .widget-card {
+            background: #FFFFFF;
+            border: 0.5px solid #DBCAD4;
+            border-radius: 8px;
+            box-shadow: 0px 2px 4px #0000001A;
+            padding: 20px 20px 16px;
+            height: 100%;
+        }
+
+        .widget-card-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .widget-title {
+            font-family: 'Lato' !important;
+            font-weight: 700;
+            font-size: var(--fs-sm);
+            color: #8C3665;
+            margin-bottom: 0;
+        }
+
+        .widget-view-more {
+            font-family: 'Lato';
+            font-size: var(--fs-xs);
+            font-weight: 500;
+            color: #999;
+            text-decoration: none !important;
+        }
+
+        .widget-view-more:hover {
+            color: #8C3665;
+        }
+
+        /* ── Donut Chart ── */
+        .donut-wrap {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .donut-canvas-wrap {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            flex-shrink: 0;
+        }
+
+        .donut-center-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Lato';
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: #333;
+            pointer-events: none;
+        }
+
+        .donut-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Lato';
+            font-size: var(--fs-xs);
+            color: #555;
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* ── Stats Row ── */
+        .stats-row-card {
+            background: #FFFFFF;
+            border: 0.5px solid #DBCAD4;
+            border-radius: 8px;
+            box-shadow: 0px 2px 4px #0000001A;
+            padding: 20px 32px;
+        }
+
+        .stat-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .stat-block-label {
+            font-family: 'Lato';
+            font-size: var(--fs-xs);
+            color: #666;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .stat-block-number {
+            font-family: 'Lato';
+            font-weight: 700;
+            font-size: 4rem;
+            color: #1c1c1c;
+            line-height: 1.1;
+            margin-bottom: 0;
+        }
+
+        .stat-block-divider {
+            width: 1px;
+            height: 60px;
+            background: #E2D2DB;
+        }
+
+        /* ── Agenda Table ── */
+        .agenda-card {
+            background: #FFFFFF;
+            border: 0.5px solid #DBCAD4;
+            border-radius: 8px;
+            box-shadow: 0px 2px 4px #0000001A;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .agenda-card-head {
+            padding: 16px 20px;
+        }
+
+        .agenda-title {
+            font-family: 'Lato' !important;
+            font-weight: 700;
+            font-size: var(--fs-sm);
+            color: #8C3665;
+            margin-bottom: 0;
+        }
+
+        table.table-agenda {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table.table-agenda thead {
+            background: #7B3B5E;
+        }
+
+        table.table-agenda thead th {
+            font-family: 'Lato' !important;
+            font-weight: 600;
+            font-size: var(--fs-xs);
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+        }
+
+        table.table-agenda tbody tr {
+            border-bottom: 1px solid #fde8ea;
+        }
+
+        table.table-agenda tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        table.table-agenda tbody tr:hover {
+            background: #fff1f2;
+        }
+
+        table.table-agenda tbody td {
+            font-family: 'Lato';
+            font-size: var(--fs-xs);
+            color: #333;
+            font-weight: 400;
+            padding: 11px 20px;
+            border: none;
+            vertical-align: middle;
+        }
+
+        table.table-agenda tbody tr.odd {
+            background: #fff;
+        }
+
+        table.table-agenda tbody tr.even {
+            background: #fdfbfb;
+        }
+
+        /* ── Bar Chart ── */
+        .bar-chart-wrap {
+            position: relative;
+            height: 120px;
+        }
+
+        /* ── Line Chart ── */
+        .line-chart-wrap {
+            position: relative;
+            height: 120px;
+        }
+
+        /* ── Dashboard content area ── */
+        .dashboard-sec {
+            padding: 20px 24px 80px;
+            position: relative;
+            z-index: 5;
+        }
+
+    </style>
+</head>
+
+<body>
+    <section class="blob-bg-body">
+
+        <!-- ═══════════════════════════════════════════
+             HEADER
+        ════════════════════════════════════════════ -->
+        <section class="header-sec">
+            <div class="custom-container p-0">
+                <div class="brand-sec">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-xl-3 col-lg-12 d-flex justify-content-between align-items-center">
+                                <a class="brand" href="home.html">
+                                    <img class="brand-img" src="./images/landing-page/logo.png">
+                                    <p class="brand-txt">Planora.AI</p>
+                                </a>
+                                <button class="navbar-toggler d-xl-none border-0 p-0" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                                    <span class="navbar-toggler-icon">
+                                        <img src="./images/Assets_Organiser_Personna/Header and Footer/toggler.svg" style="width: 30px;">
+                                    </span>
+                                </button>
+                            </div>
+
+                            <div class="col-xl-9">
+                                <div class="collapse navbar-collapse d-xl-flex justify-content-end align-items-center" id="navbarNav">
+                                    <div class="d-xl-none text-end w-100">
+                                        <p class="welcome-txt">Welcome <span class="user-name">Haritha Rengarajan</span></p>
+                                        <button type="button" class="btn-close btn-close-white"
+                                            data-bs-toggle="collapse" data-bs-target="#navbarNav"></button>
+                                    </div>
+                                    <div class="global-nav-sec">
+                                        <ul>
+                                            <li><a class="global-nav-link" href="#">
+                                                <img src="./images/Assets_Organiser_Personna/Header and Footer/help.svg" alt="">
+                                                <span>Help</span></a>
+                                            </li>
+                                            <li><a class="global-nav-link" href="#">
+                                                <img src="./images/Assets_Organiser_Personna/Header and Footer/notification_bell.svg" alt="">
+                                                <span>Notification</span></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="user-details-sec">
+                                        <span class="user-icon-sec">
+                                            <img class="user-icon" src="./images/Assets_Organiser_Personna/Header and Footer/profile.svg">
+                                        </span>
+                                        <span class="user-name">Haritha Rengarajan</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════
+             SECONDARY NAV
+        ════════════════════════════════════════════ -->
+        <section class="navigation-sec">
+            <div class="custom-container p-0">
+                <div class="sec-nav-sec">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-xl-3 col-lg-12 d-flex align-items-center">
+                                <a class="back-icon-link" href="events-home.html">
+                                    <img class="back-icon" src="./images/Assets_Organiser_Personna/Form Setup/back.svg">
+                                </a>
+                                <p class="page-name">Convergence - 2025</p>
+                            </div>
+
+                            <div class="col-xl-9">
+                                <div class="secondary-nav-wrapper" id="secondaryNav">
+                                    <div class="custom-container">
+                                        <ul class="secondary-nav-list">
+                                            <li class="active">
+                                                <a href="dashboard.html" class="nav-item">
+                                                    <img class="default" src="./images/Assets_Organiser_Personna/Event section bar/Dashboard inactive.svg" alt="">
+                                                    <img class="hover" src="./images/Assets_Organiser_Personna/Event section bar/Dashboard active.svg" alt="">
+                                                    <span>Dashboard</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="nav-item">
+                                                    <img class="default" src="./images/Assets_Organiser_Personna/Event section bar/Event info inactive.svg" alt="">
+                                                    <img class="hover" src="./images/Assets_Organiser_Personna/Event section bar/Event info active.svg" alt="">
+                                                    <span>Event Information</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="organizer-40.html" class="nav-item">
+                                                    <img class="default" src="./images/Assets_Organiser_Personna/Event section bar/Form setup inactive.svg" alt="">
+                                                    <img class="hover" src="./images/Assets_Organiser_Personna/Event section bar/Form setup active.svg" alt="">
+                                                    <span>Form Setup</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="registrations.html" class="nav-item">
+                                                    <img class="default" src="./images/Assets_Organiser_Personna/Event section bar/Registration inactive.svg" alt="">
+                                                    <img class="hover" src="./images/Assets_Organiser_Personna/Event section bar/Registration active.svg" alt="">
+                                                    <span>Registrations</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════
+             DASHBOARD CONTENT
+        ════════════════════════════════════════════ -->
+        <section class="dashboard-sec">
+            <div class="custom-container">
+                <div class="container-fluid">
+
+                    <div class="row g-3">
+
+                        <!-- ══════════════════════════════════
+                             GRAPHS SECTION — col-xl-8
+                        ═══════════════════════════════════ -->
+                        <div class="col-xl-8 col-lg-12">
+                            <div class="row g-3">
+
+                                <!-- Registrations Donut — col-xl-6 -->
+                                <div class="col-xl-6 col-md-6 col-12">
+                                    <div class="widget-card">
+                                        <div class="widget-card-head">
+                                            <p class="widget-title">Registrations</p>
+                                            <a href="registrations.html" class="widget-view-more">View More</a>
+                                        </div>
+                                        <div class="donut-wrap">
+                                            <div class="donut-canvas-wrap">
+                                                <canvas id="registrationsDonut"></canvas>
+                                                <span class="donut-center-label">86%</span>
+                                            </div>
+                                            <div class="donut-legend">
+                                                <div class="legend-item">
+                                                    <span class="legend-dot" style="background:#4CAF50;"></span>
+                                                    Registered
+                                                </div>
+                                                <div class="legend-item">
+                                                    <span class="legend-dot" style="background:#D0D0D0;"></span>
+                                                    Not Registered
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Registrations Trend — col-xl-6 -->
+                                <div class="col-xl-6 col-md-6 col-12">
+                                    <div class="widget-card">
+                                        <div class="widget-card-head">
+                                            <p class="widget-title">Registrations Trend</p>
+                                        </div>
+                                        <div class="line-chart-wrap">
+                                            <canvas id="trendLine"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Attendance Donut — col-xl-6 -->
+                                <div class="col-xl-6 col-md-6 col-12">
+                                    <div class="widget-card">
+                                        <div class="widget-card-head">
+                                            <p class="widget-title">Attendance</p>
+                                            <a href="#" class="widget-view-more">View More</a>
+                                        </div>
+                                        <div class="donut-wrap">
+                                            <div class="donut-canvas-wrap">
+                                                <canvas id="attendanceDonut"></canvas>
+                                                <span class="donut-center-label">86%</span>
+                                            </div>
+                                            <div class="donut-legend">
+                                                <div class="legend-item">
+                                                    <span class="legend-dot" style="background:#2196F3;"></span>
+                                                    Checked in
+                                                </div>
+                                                <div class="legend-item">
+                                                    <span class="legend-dot" style="background:#D0D0D0;"></span>
+                                                    Yet to check in
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Food Preference — col-xl-6 -->
+                                <div class="col-xl-6 col-md-6 col-12">
+                                    <div class="widget-card">
+                                        <div class="widget-card-head">
+                                            <p class="widget-title">Food Preference</p>
+                                            <a href="#" class="widget-view-more">View More</a>
+                                        </div>
+                                        <div class="bar-chart-wrap">
+                                            <canvas id="foodBar"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Stats Row — col-xl-12 -->
+                                <div class="col-xl-12 col-12">
+                                    <div class="stats-row-card">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="stat-block">
+                                                <p class="stat-block-label">Days Left For Event</p>
+                                                <p class="stat-block-number">192</p>
+                                            </div>
+                                            <div class="stat-block-divider"></div>
+                                            <div class="stat-block">
+                                                <p class="stat-block-label">Registrations</p>
+                                                <p class="stat-block-number">82</p>
+                                            </div>
+                                            <div class="stat-block-divider"></div>
+                                            <div class="stat-block">
+                                                <p class="stat-block-label">Seats Left</p>
+                                                <p class="stat-block-number">128</p>
+                                            </div>
+                                            <div class="stat-block-divider"></div>
+                                            <div class="stat-block">
+                                                <p class="stat-block-label">Total</p>
+                                                <p class="stat-block-number">200</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div><!-- /inner row -->
+                        </div><!-- /col-xl-8 graphs -->
+
+                        <!-- ══════════════════════════════════
+                             AGENDA SECTION — col-xl-4
+                        ═══════════════════════════════════ -->
+                        <div class="col-xl-4 col-lg-12">
+                            <div class="agenda-card h-100">
+                                <div class="agenda-card-head">
+                                    <p class="agenda-title">Agenda</p>
+                                </div>
+                                <table class="table-agenda">
+                                    <thead>
+                                        <tr>
+                                            <th>Item</th>
+                                            <th>Item Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="odd"><td>Item</td><td>Item Description</td></tr>
+                                        <tr class="even"><td>Item</td><td>Item Description</td></tr>
+                                        <tr class="odd"><td>Item</td><td>Item Description</td></tr>
+                                        <tr class="even"><td>Item</td><td>Item Description</td></tr>
+                                        <tr class="odd"><td>Item</td><td>Item Description</td></tr>
+                                        <tr class="even"><td>Item</td><td>Item Description</td></tr>
+                                        <tr class="odd"><td>Item</td><td>Item Description</td></tr>
+                                        <tr class="even"><td>Item</td><td>Item Description</td></tr>
+                                        <tr class="odd"><td>Item</td><td>Item Description</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div><!-- /col-xl-4 agenda -->
+
+                    </div><!-- /outer row -->
+
+                </div>
+            </div>
+        </section>
+
+    </section><!-- /blob-bg-body -->
+
+    <!-- ═══════════════════════════════════════════
+         FOOTER
+    ════════════════════════════════════════════ -->
+    <section class="footer-sec">
+        <div class="custom-container">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-sm-6">
+                        <p class="credits-txt">Powered by ECS | Hyperautomation</p>
+                    </div>
+                    <div class="col-sm-6 text-end">
+                        <img src="./images/Assets_Organiser_Personna/Header and Footer/footer-logo.svg" class="footer-logo">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // ── Shared chart defaults ─────────────────────────────────────────────
+        Chart.defaults.font.family = 'Lato';
+        Chart.defaults.font.size   = 12;
+
+        // ── Registrations Donut ───────────────────────────────────────────────
+        new Chart(document.getElementById('registrationsDonut'), {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [86, 14],
+                    backgroundColor: ['#4CAF50', '#E0E0E0'],
+                    borderWidth: 0,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                cutout: '72%',
+                plugins: { legend: { display: false }, tooltip: { enabled: false } },
+                animation: { animateRotate: true, duration: 800 }
+            }
+        });
+
+        // ── Attendance Donut ──────────────────────────────────────────────────
+        new Chart(document.getElementById('attendanceDonut'), {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [86, 14],
+                    backgroundColor: ['#2196F3', '#E0E0E0'],
+                    borderWidth: 0,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                cutout: '72%',
+                plugins: { legend: { display: false }, tooltip: { enabled: false } },
+                animation: { animateRotate: true, duration: 800 }
+            }
+        });
+
+        // ── Registrations Trend Line ──────────────────────────────────────────
+        new Chart(document.getElementById('trendLine'), {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+                datasets: [{
+                    data: [12, 18, 14, 22, 20, 25, 23, 30, 28, 38],
+                    borderColor: '#8C3665',
+                    backgroundColor: 'rgba(140,54,101,0.08)',
+                    borderWidth: 2,
+                    pointBackgroundColor: '#8C3665',
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#999', font: { size: 11 } },
+                        border: { display: false }
+                    },
+                    y: {
+                        display: false,
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // ── Food Preference Bar ───────────────────────────────────────────────
+        new Chart(document.getElementById('foodBar'), {
+            type: 'bar',
+            data: {
+                labels: ['Veg', 'Non Veg', 'No Food'],
+                datasets: [{
+                    data: [32, 42, 20],
+                    backgroundColor: ['#4CAF50', '#5B9BD5', '#E8B4C8'],
+                    borderRadius: 3,
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#555', font: { size: 12 } },
+                        border: { display: false }
+                    },
+                    y: {
+                        display: false,
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

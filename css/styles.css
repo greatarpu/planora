@@ -1,0 +1,823 @@
+/* remove this "not-for-now" to view the components which are hidden now for the first release */
+.not-for-now {
+    display: none !important;
+}
+
+/* Light */
+@font-face {
+    font-family: 'Alwyn New Rounded';
+    src: url('../font/AlwynNewRounded-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+/* Regular */
+@font-face {
+    font-family: 'Alwyn New Rounded';
+    src: url('../font/AlwynNewRounded-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* Medium */
+@font-face {
+    font-family: 'Alwyn New Rounded';
+    src: url('../font/AlwynNewRounded-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+/* Bold */
+@font-face {
+    font-family: 'Alwyn New Rounded';
+    src: url('../font/AlwynNewRounded-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+/* Lato Light */
+@font-face {
+    font-family: 'Lato';
+    src: url('../font/lato-light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+/* Lato Regular */
+@font-face {
+    font-family: 'Lato';
+    src: url('../font/lato-regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* Lato Bold */
+@font-face {
+    font-family: 'Lato';
+    src: url('../font/lato-bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+:root {
+    /* Brand Colors */
+    --primary-color: #970151;
+    --secondary-color: #333333;
+
+    /* Text Colors */
+    --text-primary: #2c3e50;
+    --text-secondary: #7f8c8d;
+    --text-muted: #999999;
+
+    /* Background Colors */
+    --bg-main: #ffffff;
+    --bg-alt: #f4f7f6;
+
+
+    --fs-xs: 1.4rem;
+    /* 14px */
+    --fs-sm: 1.6rem;
+    /* 16px */
+    --fs-md: 2.0rem;
+    /* 20px */
+    --fs-lg: 2.2rem;
+    /* 22px */
+    --fs-xl: 2.4rem;
+    /* 24px */
+}
+
+/*for the Laptop width and less than Laptop width*/
+@media (max-width: 1599px) {
+    .custom-container {
+        max-width: 100%;
+        width: 100%;
+    }
+}
+
+@media (min-width: 1599px) {
+    .custom-container {
+        max-width: 2000px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+    }
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+.header-sec {
+    height: 60px;
+    background-color: #6F2754;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding-left: 24px;
+    padding-right: 24px;
+    position: relative;
+    z-index: 5;
+}
+
+/* Ensure the inner container actually fills the available space */
+.header-sec .custom-container {
+    width: 100%;
+    padding: 0 15px;
+    /* Standard gutter */
+}
+
+img.brand-img {
+    height: 26px;
+}
+
+.brand-txt {
+    font-size: var(--fs-lg);
+    display: inline-flex;
+    margin-left: 8px;
+}
+
+a.brand {
+    display: flex;
+    align-items: center;
+    text-decoration: none !important;
+    color: #fff;
+
+}
+
+a.brand p {
+    margin-bottom: 0px;
+    color: #fff;
+    font-family: 'Alwyn New Rounded' !important;
+    font-weight: 700;
+}
+
+.user-name {
+    font-size: var(--fs-sm);
+    font-family: 'Alwyn New Rounded' !important;
+    font-weight: 500;
+    color: #fff;
+}
+
+.user-icon-sec img.user-icon {
+    margin-right: 8px;
+}
+
+.user-details-sec {
+    display: flex;
+    align-items: center;
+}
+
+
+/* --- Vertical Centering & Layout Fix --- */
+.header-sec {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    /* Vertical Center */
+    background-color: #6F2754;
+    overflow: visible;
+    /* Changed from hidden to allow dropdowns later */
+}
+
+/* --- Navigation List Styling --- */
+.global-nav-sec {
+    display: inline-flex;
+}
+
+.global-nav-sec ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.global-nav-link {
+    color: #fff;
+    text-decoration: none !important;
+    font-family: 'Lato', sans-serif;
+    font-size: var(--fs-xs);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 60px;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.global-nav-link:hover {
+    background-color: #600C3F;
+}
+
+.global-nav-link.active {
+    background-color: #600C3F;
+}
+
+.global-nav-link img {
+    height: 22px;
+    width: auto;
+}
+
+/* --- User Section --- */
+.user-details-sec {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 10px;
+    padding-left: 15px;
+}
+
+
+/* Secondary Nav Container */
+.secondary-nav-wrapper {
+    border-bottom: 1px solid #e0e0e0;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    z-index: 9;
+    transition: transform 0.3s ease-in-out, opacity 0.3s;
+}
+
+/* Base list styling */
+.secondary-nav-list {
+    display: flex;
+    justify-content: flex-end;
+    /* Aligns items to the right like your image */
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 8px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    text-decoration: none !important;
+    font-family: 'Alwyn New Rounded', sans-serif;
+    font-size: 1.4rem;
+    color: #757575;
+    font-weight: 500;
+    padding-left: 12px;
+    padding-right: 12px;
+    height: 52px;
+}
+
+.nav-item img {
+    margin-right: 4px;
+}
+
+.secondary-nav-list li:hover a.nav-item {
+    background: transparent linear-gradient(180deg, #8D1460 0%, #570938 100%) 0% 0% no-repeat padding-box;
+    color: #fff;
+}
+
+a.nav-item img.hover {
+    display: none;
+}
+
+a.nav-item:hover img.default {
+    display: none;
+}
+
+a.nav-item:hover img.hover {
+    display: inline-flex;
+
+}
+
+.secondary-nav-list li.active a.nav-item img.default {
+    display: none;
+}
+
+.secondary-nav-list li.active a.nav-item img.hover {
+    display: inline-flex;
+}
+
+
+.secondary-nav-list li.active .nav-item {
+    background: transparent linear-gradient(180deg, #8D1460 0%, #570938 100%) 0% 0% no-repeat padding-box;
+    color: #fff;
+}
+
+.secondary-nav-list li.active .nav-item span {
+    font-weight: 700;
+}
+
+
+.navigation-sec {
+    background: #FFFFFF60;
+    border: 0.5px solid #E7D6D9;
+    padding-left: 24px;
+    padding-right: 24px;
+    position: relative;
+    height: 52px;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+}
+
+
+.blob-bg-body {
+    position: relative;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #FAD5C5 0%, #FECFE4 100%);
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+/* Create a blurred overlay */
+.blob-bg-body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    background-color: rgba(255, 255, 255, 0.4);
+    z-index: 2;
+}
+
+.blob-bg-body::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('../images/Assets_Organiser_Personna/Blob_background/Blob\ 1.svg') no-repeat left top, url('../images/Assets_Organiser_Personna/Blob_background/Blob\ -1.svg')no-repeat right bottom;
+    animation: rotate-bg 50s linear infinite;
+    z-index: 1;
+    background-size: 50%;
+    opacity: 0.5
+}
+
+.page-name {
+    margin-bottom: 0px;
+    margin-left: 8px;
+    font-size: var(--fs-md);
+    font-family: 'Alwyn New Rounded' !important;
+    font-weight: 500;
+    color: #8C3665;
+}
+
+@keyframes rotate-bg {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+section.footer-sec {
+    padding: 8px 30px 8px;
+    background-color: #F6D5E9;
+    height: 40px;
+    position: fixed !important;
+    bottom: 0;
+    width: 100vw;
+    z-index: 4;
+}
+
+img.footer-logo {
+    height: 24px !important;
+    width: auto !important;
+}
+
+.credits-txt {
+    font-size: 14px;
+    margin-bottom: 0px;
+    font-family: 'Alwyn New Rounded';
+    font-size: var(--fs-sm);
+    font-weight: 500;
+    color: #8C3665;
+}
+
+
+.blur-box-sec {
+    height: calc(100% - 180px);
+    padding-left: 24px;
+    padding-right: 24px;
+    position: relative;
+    z-index: 5;
+}
+
+.blur-box {
+    background: #fdf3f1;
+    box-shadow: 0px 2px 2px #0000002E;
+    border: 0.5px solid #DBCAD4;
+    border-radius: 8px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    overflow: hidden;
+}
+
+.blur-box-head {
+    padding: 16px 24px;
+    border-bottom: 0.5px solid #DBCAD4;
+}
+
+.blur-box-head p {
+    font-family: 'Lato' !important;
+    font-weight: 700;
+    font-size: var(--fs-sm);
+    margin-bottom: 0px;
+    color: #8C3665;
+}
+
+.blur-box-body {
+    padding: 16px 24px;
+}
+
+.primary-btn {
+    background-image: linear-gradient(to right, #AF0A62 0%, #580531 51%, #AF0A62 100%);
+}
+
+.primary-btn {
+    padding: 4px 16px;
+    text-align: center;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    box-shadow: 0px 2px 2px #00000033;
+    border: 1px solid #FF9DD1;
+    border-radius: 4px;
+    border-radius: 3px;
+    display: block;
+    outline: none;
+    text-decoration: none;
+    font-family: 'Lato';
+    font-weight: 500;
+    font-size: var(--fs-xs);
+    align-items: center;
+    cursor: pointer;
+    width: max-content;
+}
+
+.primary-btn:hover {
+    background-position: right center;
+    color: #fff;
+    text-decoration: none;
+}
+
+.terenary-btn {
+    background: transparent linear-gradient(111deg, #056B91 0%, #3598C3 100%) 0% 0% no-repeat padding-box;
+}
+
+.terenary-btn {
+    padding: 4px 16px;
+    text-align: center;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    border-radius: 3px;
+    display: block;
+    outline: none;
+    box-shadow: 0px 2px 2px #00000033;
+    border: 1px solid #9DDBFF;
+    border-radius: 4px;
+    text-decoration: none;
+    font-family: 'Lato';
+    font-weight: 500;
+    font-size: var(--fs-xs);
+    align-items: center;
+    cursor: pointer;
+    width: max-content;
+}
+
+.terenary-btn:hover {
+    background-position: right center;
+    color: #fff;
+    text-decoration: none;
+}
+
+.export-btn {
+    background: transparent linear-gradient(108deg, #257D5A 0%, #133F2D 100%) 0% 0% no-repeat padding-box;
+}
+
+.export-btn {
+    padding: 8px 16px;
+    text-align: center;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    border-radius: 3px;
+    display: block;
+    outline: none;
+    box-shadow: 0px 2px 2px #00000033;
+    border: 1px solid #95E8B1;
+    border-radius: 4px;
+    text-decoration: none;
+    font-family: 'Lato';
+    font-weight: 500;
+    font-size: var(--fs-xs);
+    align-items: center;
+    cursor: pointer;
+    width: max-content;
+}
+
+.export-btn:hover {
+    background-position: right center;
+    color: #fff;
+    text-decoration: none;
+}
+
+.cancel-reg-btn {
+    background: transparent linear-gradient(260deg, #C74545 0%, #E16363 100%) 0% 0% no-repeat padding-box;
+}
+
+.cancel-reg-btn {
+    padding: 8px 16px;
+    text-align: center;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    border-radius: 3px;
+    display: block;
+    outline: none;
+    box-shadow: 0px 2px 2px #00000033;
+    border: 1px solid #FFC5CB;
+    border-radius: 4px;
+    text-decoration: none;
+    font-family: 'Lato';
+    font-weight: 500;
+    font-size: var(--fs-xs);
+    align-items: center;
+    cursor: pointer;
+    width: max-content;
+}
+
+.cancel-reg-btn:hover {
+    background-position: right center;
+    color: #fff;
+    text-decoration: none;
+}
+
+.navbar-toggler-icon {
+    width: 30px !important;
+    height: 30px !important;
+}
+
+
+
+
+
+
+
+
+/* --- Responsive (Mobile) --- */
+@media (max-width: 1199px) {
+    .secondary-nav-wrapper {
+        display: none;
+        /* Hide the horizontal bar on mobile */
+    }
+
+    /* Instead, add these items to your existing slide-in menu CSS */
+    .navbar-collapse .secondary-nav-list {
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 20px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar-collapse .nav-item {
+        color: #fff;
+        /* White text for side menu */
+    }
+
+    .footer-sec {
+        height: auto !important;
+    }
+
+    .footer-sec .credits-txt {}
+
+    .footer-sec .text-end {
+        text-align: center !important;
+    }
+
+    p.welcome-txt {
+        text-align: left;
+        color: #fff;
+        font-size: 14px;
+        width: 90%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin-bottom: 0px;
+    }
+
+    .collapsible-sidebar .btn-close.btn-close-white {
+        margin-left: auto;
+    }
+
+    .user-details-sec {
+        padding-left: 0px;
+        margin-left: 0px;
+    }
+
+    .page-name {
+        font-size: 16px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* --- Responsive Behavior --- */
+
+/* On Mobile/Tablets */
+@media (max-width: 991px) {
+
+    /* Hide the text labels for links, show only icons to save space */
+    .global-nav-link span,
+    .user-name {
+        display: none;
+    }
+
+    .user-details-sec {
+        border-left: none;
+    }
+
+    .global-nav-link {
+        margin-right: 15px;
+    }
+
+    p.user-welcome-heading {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 1199px) {
+
+    /* Transform the collapse into a fixed side-panel */
+    .navbar-collapse {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        /* Start off-screen to the right */
+        width: 70%;
+        /* The "half-opened" width */
+        height: 100vh;
+        background-color: #6F2754;
+        /* Your header color */
+        transition: 0.4s ease-in-out;
+        display: flex !important;
+        /* Force flex for alignment */
+        flex-direction: column;
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
+        padding: 20px;
+        z-index: 9999;
+        box-shadow: -10px 0 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .collapsible-sidebar {
+        display: flex;
+        align-items: center;
+    }
+
+    /* --- Desktop & Laptop (XL Screens) --- */
+    @media (min-width: 1200px) {
+        .navbar-collapse {
+            display: flex !important;
+            position: static;
+            /* Resets the fixed position from mobile */
+            height: auto;
+            width: auto;
+            background-color: transparent;
+            box-shadow: none;
+            right: auto;
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .mobile-menu-header {
+            display: none !important;
+            /* Hide Close button on desktop */
+        }
+    }
+
+    /* --- Tablet & Mobile (Slide-in Menu) --- */
+    @media (max-width: 1199px) {
+        .navbar-collapse {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            /* Hidden by default */
+            width: 70%;
+            height: 100vh;
+            background-color: #6F2754;
+            z-index: 9999;
+            transition: right 0.4s ease-in-out;
+            display: flex !important;
+            flex-direction: column;
+            box-shadow: -10px 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .collapsible-sidebar {
+            padding: 20px;
+        }
+
+        #navbarNav {
+            padding: 0px !important;
+        }
+
+        .global-nav-sec ul {
+            border-top: solid 1px #fff;
+        }
+
+        .global-nav-link {
+            padding-left: 20px !important;
+            padding-right: 20px !important;
+        }
+
+        /* Bootstrap adds this class when toggled */
+        .navbar-collapse.show {
+            right: 0;
+            justify-content: flex-start !important;
+        }
+
+        .global-nav-sec {
+            width: 100%;
+        }
+
+        .global-nav-sec ul {
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
+        }
+
+        .global-nav-sec ul li {
+            width: 100%;
+        }
+
+        .global-nav-sec ul li a {
+            width: 100%;
+        }
+
+        .global-nav-link {
+            width: 100%;
+            padding: 15px 0;
+        }
+
+        .global-nav-link span,
+        .user-name {
+            display: inline !important;
+        }
+
+        .global-nav-link img {
+            margin-right: 8px;
+        }
+
+        .header-sec {
+            padding-left: 12px !important;
+            padding-right: 12px !important;
+        }
+
+        .footer-sec {
+            padding-left: 12px !important;
+            padding-right: 12px !important;
+        }
+
+        .credits-txt {
+            font-size: 12px !important;
+        }
+
+        img.footer-logo {
+            height: 20px !important;
+        }
+    }
+
+

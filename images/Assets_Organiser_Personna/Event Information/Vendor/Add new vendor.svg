@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ad427b"/>
+      <stop offset="1" stop-color="#6e1a47"/>
+    </linearGradient>
+  </defs>
+  <g id="Add_new_vendor" data-name="Add new vendor" transform="translate(-666 -384)">
+    <rect id="Rectangle_4107" data-name="Rectangle 4107" width="32" height="32" rx="4" transform="translate(666 384)" fill="url(#linear-gradient)"/>
+    <g id="Plus" transform="translate(674.581 392.327)">
+      <path id="Combined-Shape" d="M13.839,6.327A1.275,1.275,0,0,1,15.113,7.6v4.95h4.956a1.274,1.274,0,1,1,0,2.549H15.113v4.952a1.274,1.274,0,1,1-2.549,0V15.1H7.608a1.274,1.274,0,1,1,0-2.549h4.956V7.6A1.275,1.275,0,0,1,13.839,6.327Z" transform="translate(-6.333 -6.327)" fill="#fff" fill-rule="evenodd"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
+  <g id="hamburger" transform="translate(-337 -51)">
+    <g id="Group_9102" data-name="Group 9102" transform="translate(337 51)">
+      <path id="Path_6549" data-name="Path 6549" d="M16,30c-6.6,0-9.9,0-11.95-2.05S2,22.6,2,16,2,6.1,4.05,4.05,9.4,2,16,2s9.9,0,11.95,2.05S30,9.4,30,16s0,9.9-2.05,11.95S22.6,30,16,30Z" transform="translate(-2 -2)" fill="#fff" opacity="0.25"/>
+      <path id="Path_6550" data-name="Path 6550" d="M24.15,8.3A1.05,1.05,0,0,1,23.1,9.35H6.3a1.05,1.05,0,0,1,0-2.1H23.1A1.05,1.05,0,0,1,24.15,8.3Zm0,5.6a1.05,1.05,0,0,1-1.05,1.05H6.3a1.05,1.05,0,1,1,0-2.1H23.1A1.05,1.05,0,0,1,24.15,13.9Zm0,5.6a1.05,1.05,0,0,1-1.05,1.05H6.3a1.05,1.05,0,0,1,0-2.1H23.1A1.05,1.05,0,0,1,24.15,19.5Z" transform="translate(-0.7 0.1)" fill="#f0f0f0"/>
+    </g>
+  </g>
+</svg>

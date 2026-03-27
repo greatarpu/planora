@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="107.002" height="107" viewBox="0 0 107.002 107">
+  <g id="Attendance_Chart" data-name="Attendance Chart" transform="translate(-238.678 -149)">
+    <path id="Path_5426" data-name="Path 5426" d="M-35-88.5A53.5,53.5,0,0,1,17.155-46.906,53.5,53.5,0,0,1-11.79,13.2,53.5,53.5,0,0,1-76.828-1.646a53.5,53.5,0,0,1,0-66.711l8.507,6.784a42.617,42.617,0,0,0,0,53.143A42.617,42.617,0,0,0-16.511,3.4,42.617,42.617,0,0,0,6.547-44.485,42.617,42.617,0,0,0-35-77.619Z" transform="translate(327.178 237.5)" fill="#4889a1"/>
+    <path id="Path_5427" data-name="Path 5427" d="M-69.192-68.357A53.5,53.5,0,0,1-27.365-88.5v10.881a42.617,42.617,0,0,0-33.32,16.046Z" transform="translate(319.541 237.5)" fill="#e4e2e2"/>
+    <text id="_86_" data-name="86%" transform="translate(289.996 210.098)" fill="#2a2a2a" font-size="22" font-family="AlwynNewRounded-Regular, Alwyn New Rounded"><tspan x="-21.659" y="0">86%</tspan></text>
+  </g>
+</svg>

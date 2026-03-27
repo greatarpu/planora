@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" viewBox="0 0 40 40">
+  <defs>
+    <linearGradient id="linear-gradient" y1="0.156" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#af0a62"/>
+      <stop offset="1" stop-color="#580531"/>
+    </linearGradient>
+    <filter id="Rectangle_4119" x="0" y="0" width="40" height="40" filterUnits="userSpaceOnUse">
+      <feOffset dy="2" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="1" result="blur"/>
+      <feFlood flood-opacity="0.2"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Edit" transform="translate(-1177 -197)">
+    <g transform="matrix(1, 0, 0, 1, 1177, 197)" filter="url(#Rectangle_4119)">
+      <g id="Rectangle_4119-2" data-name="Rectangle 4119" transform="translate(3 1)" stroke="#ff9dd1" stroke-width="1" fill="url(#linear-gradient)">
+        <rect width="34" height="34" rx="4" stroke="none"/>
+        <rect x="0.5" y="0.5" width="33" height="33" rx="3.5" fill="none"/>
+      </g>
+    </g>
+    <g id="Iconly_Bold_Edit" data-name="Iconly/Bold/Edit" transform="translate(1189 207)">
+      <g id="Edit-2" data-name="Edit">
+        <path id="Path_6521" data-name="Path 6521" d="M15.1,14.181A.91.91,0,0,1,15.1,16H10.026a.91.91,0,0,1,0-1.819H15.1ZM11.582.621l1.311,1.042A2.725,2.725,0,0,1,13.912,3.22a2.134,2.134,0,0,1-.434,1.816l-7.81,10.1a1.871,1.871,0,0,1-1.453.726L1.1,15.9a.355.355,0,0,1-.349-.277L.046,12.556A1.9,1.9,0,0,1,.4,10.96L5.941,3.794a.278.278,0,0,1,.377-.048L8.649,5.6a.752.752,0,0,0,.575.162.84.84,0,0,0,.726-.927.933.933,0,0,0-.292-.564L7.394,2.456a.336.336,0,0,1-.057-.467L8.215.851A2.3,2.3,0,0,1,11.582.621Z" transform="translate(0 0)" fill="#fcf1ef"/>
+      </g>
+    </g>
+  </g>
+</svg>

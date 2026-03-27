@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="29" height="29" viewBox="0 0 29 29">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#4489cd"/>
+      <stop offset="1" stop-color="#24cab3"/>
+    </linearGradient>
+    <filter id="Path_5415" x="0" y="0" width="29" height="29" filterUnits="userSpaceOnUse">
+      <feOffset dy="2" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="1" result="blur"/>
+      <feFlood flood-opacity="0.18"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Seats_left" data-name="Seats left" transform="translate(1 -1)">
+    <g id="Category" transform="translate(2 2)">
+      <g transform="matrix(1, 0, 0, 1, -3, -1)" filter="url(#Path_5415)">
+        <path id="Path_5415-2" data-name="Path 5415" d="M6.808,13.19a2.924,2.924,0,0,1,2.921,2.945h0v3.92A2.93,2.93,0,0,1,6.808,23H2.921A2.938,2.938,0,0,1,0,20.056H0v-3.92A2.931,2.931,0,0,1,2.921,13.19H6.808Zm13.271,0A2.931,2.931,0,0,1,23,16.136h0v3.92A2.938,2.938,0,0,1,20.079,23H16.192a2.93,2.93,0,0,1-2.921-2.944h0v-3.92a2.924,2.924,0,0,1,2.921-2.945h3.887ZM6.808,0A2.93,2.93,0,0,1,9.729,2.945h0v3.92A2.923,2.923,0,0,1,6.808,9.81H2.921A2.93,2.93,0,0,1,0,6.866H0V2.945A2.938,2.938,0,0,1,2.921,0H6.808ZM20.079,0A2.938,2.938,0,0,1,23,2.945h0v3.92A2.93,2.93,0,0,1,20.079,9.81H16.192a2.923,2.923,0,0,1-2.921-2.944h0V2.945A2.93,2.93,0,0,1,16.192,0h3.887Z" transform="translate(3 1)" fill="url(#linear-gradient)"/>
+      </g>
+    </g>
+  </g>
+</svg>

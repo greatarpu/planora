@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="29" height="29" viewBox="0 0 29 29">
+  <defs>
+    <filter id="Fill-1" x="0" y="0" width="29" height="29" filterUnits="userSpaceOnUse">
+      <feOffset dy="2" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Fill-1-2" x="0" y="0" width="29" height="29" filterUnits="userSpaceOnUse">
+      <feOffset dy="2" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="0.5" result="blur-2"/>
+      <feFlood flood-opacity="0.161" result="color"/>
+      <feComposite operator="out" in="SourceGraphic" in2="blur-2"/>
+      <feComposite operator="in" in="color"/>
+      <feComposite operator="in" in2="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Event_info" data-name="Event info" transform="translate(2.5 0.5)">
+    <g data-type="innerShadowGroup">
+      <g transform="matrix(1, 0, 0, 1, -2.5, -0.5)" filter="url(#Fill-1)">
+        <path id="Fill-1-3" data-name="Fill-1" d="M16.34,2H7.67C4.28,2,2,4.38,2,7.92v8.17C2,19.62,4.28,22,7.67,22h8.67C19.73,22,22,19.62,22,16.09V7.92C22,4.38,19.73,2,16.34,2" transform="translate(2.5 0.5)" fill="#d2f3ff" opacity="0.9"/>
+      </g>
+      <g transform="matrix(1, 0, 0, 1, -2.5, -0.5)" filter="url(#Fill-1-2)">
+        <path id="Fill-1-4" data-name="Fill-1" d="M16.34,2H7.67C4.28,2,2,4.38,2,7.92v8.17C2,19.62,4.28,22,7.67,22h8.67C19.73,22,22,19.62,22,16.09V7.92C22,4.38,19.73,2,16.34,2" transform="translate(2.5 0.5)" fill="#fff" opacity="0.9"/>
+      </g>
+    </g>
+    <path id="Combined-Shape" d="M11.995,10.487a.877.877,0,0,1,.875.875v4.42a.875.875,0,1,1-1.75,0v-4.42A.877.877,0,0,1,11.995,10.487ZM12,7.314a.875.875,0,1,1-.88.875A.876.876,0,0,1,12,7.314Z" fill="#0b536d"/>
+  </g>
+</svg>

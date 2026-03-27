@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20.873" height="20.8" viewBox="0 0 20.873 20.8">
+  <g id="Tile_active" data-name="Tile active" transform="translate(0.4 0.4)">
+    <path id="Stroke-1" d="M18.846,4.1A4.1,4.1,0,1,1,14.75,0,4.1,4.1,0,0,1,18.846,4.1Z" transform="translate(1.227 0)" fill="#b784a4" stroke="#580531" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8" fill-rule="evenodd"/>
+    <path id="Stroke-3" d="M8.193,4.1A4.1,4.1,0,1,1,4.1,0,4.1,4.1,0,0,1,8.193,4.1Z" transform="translate(0 0)" fill="#b784a4" stroke="#580531" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8" fill-rule="evenodd"/>
+    <path id="Stroke-5" d="M18.846,14.685a4.1,4.1,0,1,1-4.1-4.1A4.1,4.1,0,0,1,18.846,14.685Z" transform="translate(1.227 1.219)" fill="#b784a4" stroke="#580531" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8" fill-rule="evenodd"/>
+    <path id="Stroke-7" d="M8.193,14.685a4.1,4.1,0,1,1-4.1-4.1A4.1,4.1,0,0,1,8.193,14.685Z" transform="translate(0 1.219)" fill="#b784a4" stroke="#580531" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8" fill-rule="evenodd"/>
+  </g>
+</svg>

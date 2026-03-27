@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planora - View Event</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        /* ── Page layout ── */
+        .view-event-sec {
+            padding: 16px 24px 80px;
+            position: relative;
+            z-index: 4;
+        }
+
+
+
+        /* Event banner image */
+        .event-banner {
+            width: 100%;
+            height: 200px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0px 2px 4px #0000001A;
+            margin-bottom: 16px;
+        }
+
+        .event-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .event-banner-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #1a1a4e 0%, #2d2d7e 50%, #6F2754 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .event-banner-placeholder p {
+            font-family: 'Alwyn New Rounded';
+            font-size: 3.6rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 2px;
+            margin: 0;
+        }
+
+        /* Event Info pill tag */
+        .event-info-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 14px;
+            font-family: 'Lato';
+            font-size: var(--fs-xs);
+            font-weight: 500;
+            background: transparent linear-gradient(103deg, #9B346B 0%, #4E1A36 100%) 0% 0% no-repeat padding-box;
+            border-radius: 25px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .event-info-tag img {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* ── About The Event ── */
+        .content-block {
+            background: #fef2f6;
+            border: 0.5px solid #DBCAD4;
+            border-radius: 8px;
+            box-shadow: 0px 2px 4px #0000001A;
+            padding: 20px 24px;
+            margin-bottom: 16px;
+        }
+
+        .content-block-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .content-block-title img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .content-block-title p {
+            font-family: 'Alwyn New Rounded' !important;
+            font-weight: 700;
+            font-size: var(--fs-md);
+            color: #8C3665;
+            margin-bottom: 0;
+        }
+
+        .content-block-body p {
+            font-family: 'Lato';
+            font-size: var(--fs-xs);
+            color: #333;
+            line-height: 1.7;
+            margin-bottom: 0;
+        }
+
+        /* ── Agenda Table ── */
+        table.table-agenda-view {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table.table-agenda-view tbody tr {
+            border-bottom: 1px solid #fde8ea;
+        }
+
+        table.table-agenda-view tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        table.table-agenda-view tbody tr:hover {
+            background: #fff1f2;
+        }
+
+        table.table-agenda-view tbody td {
+            font-family: 'Lato';
+            font-size: var(--fs-xs);
+            color: #333;
+            padding: 12px 8px;
+            border: none;
+            vertical-align: middle;
+        }
+
+        table.table-agenda-view tbody td:first-child {
+            color: #8C3665;
+            font-weight: 700;
+            white-space: nowrap;
+            width: 200px;
+        }
+
+        table.table-agenda-view tbody tr.odd {
+            background: #fff;
+        }
+
+        table.table-agenda-view tbody tr.even {
+            background: #fdfbfb;
+        }
+
+        /* ══════════════════════════════════════
+           RIGHT SIDEBAR
+        ══════════════════════════════════════ */
+
+        /* Success banner */
+        .success-banner {
+            background: #fff;
+            border: 0.5px solid #DBCAD4;
+            border-radius: 8px;
+            box-shadow: 0px 2px 4px #0000001A;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .success-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-right: 0px;
+        }
+
+        .success-icon img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .success-text p:first-child {
+            font-family: 'Lato';
+            font-weight: 700;
+            font-size: var(--fs-sm);
+            color: #1c1c1c;
+            margin-bottom: 2px;
+        }
+
+        .success-text p:last-child {
+            font-family: 'Lato';
+            font-size: var(--fs-xs);
+            color: #888;
+            font-style: italic;
+            margin-bottom: 0;
+        }
+
+
+        /* Upcoming activities section */
+        .sidebar-section-title {
+            font-family: 'Alwyn New Rounded' !important;
+            font-weight: 700;
+            font-size: var(--fs-md);
+            color: #8C3665;
+            margin-bottom: 12px;
+        }
+
+        /* Activity card */
+        .activity-card {
+            background: #fff;
+            border: 0.5px solid #DBCAD4;
+            border-radius: 8px;
+            box-shadow: 0px 2px 4px #0000001A;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        /* Date badge */
+        .activity-date-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #6F2754;
+            border-radius: 6px;
+            padding: 6px 12px;
+            flex-shrink: 0;
+            min-width: 48px;
+        }
+
+        .activity-date-badge .month {
+            font-family: 'Lato';
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            line-height: 1;
+        }
+
+        .activity-date-badge .day {
+            font-family: 'Lato';
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.1;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-content p.activity-name {
+            font-family: 'Lato';
+            font-weight: 700;
+            font-size: var(--fs-sm);
+            color: #1c1c1c;
+            margin-bottom: 2px;
+        }
+
+        .activity-content p.activity-time {
+            font-family: 'Lato';
+            font-size: var(--fs-xs);
+            color: #888;
+            margin-bottom: 10px;
+        }
+
+        /* ── QR Tap trigger ── */
+        .qr-tap {
+            border: none;
+            background: transparent;
+        }
+
+        .qr-tap-thumb {
+            transition: box-shadow 0.2s;
+        }
+
+        .qr-tap:hover .qr-tap-thumb {
+            transform: scale(1.1);
+        }
+
+        .qr-tap-thumb img {
+            width: 75px;
+            height: 75px;
+        }
+
+        /* ══════════════════════════════════════
+           QR MODAL OVERLAY
+        ══════════════════════════════════════ */
+
+        .qr-modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(80, 20, 50, 0.45);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qr-modal-overlay.open {
+            display: flex;
+        }
+
+        .qr-modal-card {
+            background: #fff;
+            border-radius: 16px;
+            width: 340px;
+            max-width: 92vw;
+            position: relative;
+            overflow: visible;
+            box-shadow: 0 12px 40px rgba(80, 20, 50, 0.3);
+            animation: modalIn 0.25s ease;
+            padding: 75px 24px 24px;
+            background: transparent linear-gradient(270deg, #EE82A3 0%, #FFA953 100%) 0% 0% no-repeat padding-box;
+            border-radius: 8px;
+        }
+
+        @keyframes modalIn {
+            from {
+                transform: scale(0.88) translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .qr-modal-top {
+            background: #fff;
+            border-radius: 8px 8px 0 0;
+            padding: 65px 24px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .qr-modal-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid #8C3665;
+            overflow: hidden;
+            margin-bottom: 14px;
+            background: #f0d9e7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: -50px;
+        }
+
+        .qr-modal-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .qr-modal-name {
+            font-family: 'Lato' !important;
+            font-weight: 700;
+            font-size: var(--fs-sm);
+            color: #292929;
+            margin-bottom: 2px;
+        }
+
+        .qr-modal-role,
+        .qr-modal-team,
+        .qr-modal-dept {
+            font-family: 'Lato';
+            font-size: var(--fs-xs);
+            font-weight: 700;
+            color: #757575;
+            margin-bottom: 1px;
+        }
+
+        /* Dashed tear-line with circle notches */
+        .qr-modal-tear {
+            display: flex;
+            align-items: center;
+            position: relative;
+            margin: 0;
+            background-color: #fff;
+            padding-top: 0px;
+        }
+
+        .qr-modal-tear::before {
+            content: '';
+            width: 25px;
+            height: 25px;
+            background: rgb(255 169 84);
+            border-radius: 50%;
+            flex-shrink: 0;
+            position: absolute;
+            left: -12px;
+            z-index: 1;
+        }
+
+        .qr-modal-tear::after {
+            content: '';
+            width: 25px;
+            height: 25px;
+            background: #ee8599;
+            border-radius: 50%;
+            flex-shrink: 0;
+            position: absolute;
+            right: -12px;
+            z-index: 1;
+        }
+
+        .qr-modal-tear-line {
+            flex: 1;
+            border: none;
+            border-top: 2px dashed #000;
+            margin: 0 -1px;
+        }
+
+        .qr-modal-bottom {
+            background: #fff;
+            border-radius: 0 0 8px 8px;
+            padding: 20px 24px 28px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .qr-modal-event-name {
+            font-family: 'Lato' !important;
+            font-weight: 700;
+            font-size: var(--fs-md);
+            color: #8C3665;
+            margin-bottom: 2px;
+        }
+
+        .qr-modal-event-date {
+            font-family: 'Lato';
+            font-size: var(--fs-sm);
+            color: #6F2754;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .qr-modal-scan-label {
+            font-family: 'Lato';
+            font-size: var(--fs-xs);
+            color: #292929;
+            font-style: italic;
+            margin-bottom: 14px;
+        }
+
+        .qr-code-box {
+            width: 160px;
+            height: 160px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid #DBCAD4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qr-code-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Close button */
+        .qr-modal-close {
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            width: 30px;
+            height: 30px;
+            background: #fff;
+            border: 1.5px solid #DBCAD4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+            transition: background 0.15s;
+            z-index: 10;
+        }
+
+        .qr-modal-close:hover {
+            background: #fde8ea;
+        }
+
+        .qr-modal-close svg {
+            width: 14px;
+            height: 14px;
+        }
+
+
+        /* Individual ticket row card */
+        .ticket-row {
+            background: #fff;
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            cursor: pointer;
+            transition: box-shadow 0.15s, border-color 0.15s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ticket-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .ticket-row:hover,
+        .ticket-row.active {
+            border-color: #8C3665;
+        }
+
+        /* Left notch for active ticket */
+        .ticket-row.active::before {
+            content: '';
+            position: absolute;
+            left: -1px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 60%;
+            background: #8C3665;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .ticket-row-meta {
+            flex: 1;
+        }
+
+        .ticket-row-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .ticket-row-meta-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .ticket-row-meta-item img {
+            width: 15px;
+            height: 15px;
+            flex-shrink: 0;
+        }
+
+        .ticket-row-meta-item p {
+            font-family: 'Lato';
+            font-size: var(--fs-xs);
+            color: #333;
+            font-weight: 500;
+            margin-bottom: 0;
+        }
+
+        /* QR thumbnail on right of each row */
+        .ticket-row-qr {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            flex-shrink: 0;
+        }
+
+        .ticket-row-qr-thumb {
+            width: 64px;
+            height: 64px;
+            border-radius: 6px;
+            background: linear-gradient(135deg, #f8d7e3 0%, #f3c4da 100%);
+            border: 1px solid #DBCAD4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .ticket-row-qr-thumb svg {
+            width: 36px;
+            height: 36px;
+        }
+
+        .ticket-row-qr-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .tap-label {
+            font-family: 'Lato';
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
+            background: transparent linear-gradient(180deg, #8D1460 0%, #570938 100%);
+            border-radius: 4px;
+            padding: 2px 12px;
+            display: inline-block;
+        }
+
+        /* Dashed tear separator inside row */
+        .ticket-row-divider {
+            width: 1px;
+            height: 64px;
+            border-left: 2px dashed #DBCAD4;
+            margin: 0 8px;
+            flex-shrink: 0;
+        }
+
+        /* Notch cutouts on divider (top & bottom semicircles) */
+        .ticket-row-notch-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+            position: relative;
+            height: 80px;
+            margin: 0 10px;
+        }
+
+        .ticket-row-notch-wrap::before {
+            content: '';
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #fde5e1;
+            flex-shrink: 0;
+            position: absolute;
+        }
+
+        .ticket-row-notch-wrap::after {
+            content: '';
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #fde5e1;
+            flex-shrink: 0;
+            position: absolute;
+        }
+
+        .ticket-row-notch-wrap::before {
+            top: -20px;
+        }
+
+        .ticket-row-notch-wrap::after {
+            bottom: -20px;
+        }
+
+        .ticket-row-notch-line {
+            width: 0;
+            flex: 1;
+            border-left: 2px dashed #DBCAD4;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="blob-bg-body">
+
+        <section class="header-sec">
+            <div class="custom-container p-0">
+                <div class="brand-sec">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-xl-3 col-lg-12 d-flex justify-content-between align-items-center">
+                                <a class="brand" href="#">
+                                    <img class="brand-img" src="./images/landing-page/logo.png">
+                                    <p class="brand-txt">Planora.AI</p>
+                                </a>
+                                <button class="navbar-toggler d-xl-none border-0 p-0" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                                    <span class="navbar-toggler-icon">
+                                        <img src="./images/Assets User Personna/Mobile/Home/hamburger.svg"
+                                            style="width: 30px;">
+                                    </span>
+                                </button>
+                            </div>
+
+                            <div class="col-xl-9">
+                                <div class="collapse navbar-collapse d-xl-flex justify-content-end align-items-center"
+                                    id="navbarNav">
+                                    <!-- <div class="d-xl-none text-end w-100 collapsible-sidebar">
+                                        <p class="welcome-txt">Welcome <span class="user-name">Haritha Rengarajan</span>
+                                        </p>
+                                        <button type="button" class="btn-close btn-close-white"
+                                            data-bs-toggle="collapse" data-bs-target="#navbarNav"></button>
+                                    </div> -->
+                                    <div class="d-xl-none text-end w-100 collapsible-sidebar">
+                                        <div class="user-details-sec">
+                                            <span class="user-icon-sec">
+                                                <img class="user-icon"
+                                                    src="./images/Assets_Organiser_Personna/Header and Footer/profile.svg">
+                                            </span>
+                                            <span class="user-name">Haritha Rengarajan</span>
+                                        </div>
+                                        <button type="button" class="btn-close btn-close-white"
+                                            data-bs-toggle="collapse" data-bs-target="#navbarNav"></button>
+                                    </div>
+
+
+                                    <div class="global-nav-sec">
+                                        <ul>
+                                            <li><a class="global-nav-link" href="#">
+                                                    <img src="./images/Assets_Organiser_Personna/Header and Footer/ticket.svg"
+                                                        alt="">
+                                                    <span>My Tickets</span></a>
+                                            </li>
+                                            <li><a class="global-nav-link" href="#">
+                                                    <img src="./images/Assets_Organiser_Personna/Header and Footer/help.svg"
+                                                        alt="">
+                                                    <span>Help</span></a>
+                                            </li>
+                                            <li><a class="global-nav-link" href="#">
+                                                    <img src="./images/Assets_Organiser_Personna/Header and Footer/notification_bell.svg"
+                                                        alt="">
+                                                    <span>Notification</span></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="user-details-sec d-none d-xl-block">
+                                        <span class="user-icon-sec">
+                                            <img class="user-icon"
+                                                src="./images/Assets_Organiser_Personna/Header and Footer/profile.svg">
+                                        </span>
+                                        <span class="user-name">Haritha Rengarajan</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- 
+        <div class="event-page-nav">
+            <div class="event-page-nav-left">
+                <a class="back-icon-link" href="user-home.html">
+                    <img class="back-icon" src="./images/Assets_Organiser_Personna/Form Setup/back.svg" alt="">
+                </a>
+                <p class="event-page-title">Convergence - 2025</p>
+            </div>
+            
+        </div> -->
+
+
+        <section class="navigation-sec">
+            <div class="custom-container p-0">
+                <div class="sec-nav-sec">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-6  d-flex align-items-center">
+                                <a class="back-icon-link" href="home.html">
+                                    <img class="back-icon"
+                                        src="./images/Assets_Organiser_Personna/Form Setup/back.svg"></a>
+                                <p class="page-name">Convergence 2026</p>
+                            </div>
+
+                            <div class="col-6 d-flex align-items-center">
+                                <a href="#" class="cancel-reg-btn">Cancel Registration</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════
+             MAIN CONTENT
+        ════════════════════════════════════════════ -->
+        <section class="view-event-sec">
+            <div class="custom-container">
+                <div class="container-fluid">
+                    <div class="row g-3">
+
+                        <!-- ══════════════════════════════════
+                             LEFT COLUMN
+                        ══════════════════════════════════ -->
+                        <div class="col-xl-9 col-lg-12">
+
+                            <!-- Banner -->
+                            <div class="event-banner">
+                                <div class="event-banner-placeholder">
+                                    <!-- Replace with <img> once real banner is available -->
+                                    <img src="./images/Assets_Organiser_Personna/View Event/banner.jpg"
+                                        alt="Convergence 2025"
+                                        onerror="this.style.display='none'; this.parentElement.querySelector('.fallback-txt').style.display='block'">
+                                    <p class="fallback-txt" style="display:none;">Convergence 2025</p>
+                                </div>
+                            </div>
+
+                            <!-- Event Info tag -->
+                            <div class="event-info-tag">
+                                <img src="./images/Assets User Personna/Mobile/Event/Event info.svg" alt="">
+                                Event Info
+                            </div>
+
+                            <!-- About The Event -->
+                            <div class="content-block">
+                                <div class="content-block-title">
+                                    <img src="./images/Assets User Personna/Mobile/Event/Folder.png" alt=""
+                                        onerror="this.style.display='none'">
+                                    <p>About The Event</p>
+                                </div>
+                                <div class="content-block-body">
+                                    <p>Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit, Sed Do Eiusmod Tempor
+                                        Incididunt Ut Labore Et Dolore Magna Aliqua. Ut Enim Ad Minim Veniam, Quis
+                                        Nostrud Exercitation Ullamco Laboris Nisi Ut Aliquip Ex Ea Commod</p>
+                                </div>
+                            </div>
+
+                            <!-- Agenda -->
+                            <div class="content-block">
+                                <div class="content-block-title">
+                                    <img src="./images/Assets User Personna/Mobile/Event/megaphone.png" alt=""
+                                        onerror="this.style.display='none'">
+                                    <p>Agenda</p>
+                                </div>
+                                <div class="content-block-body">
+                                    <table class="table-agenda-view">
+                                        <tbody>
+                                            <tr class="odd">
+                                                <td>09:00 AM To 02:00 PM</td>
+                                                <td>Event Preparation</td>
+                                            </tr>
+                                            <tr class="even">
+                                                <td>02:00 PM To 02:45 PM</td>
+                                                <td>Arrivals + Registration Starts</td>
+                                            </tr>
+                                            <tr class="odd">
+                                                <td>02:45 PM To 03:00 PM</td>
+                                                <td>Pre-Event Snack</td>
+                                            </tr>
+                                            <tr class="even">
+                                                <td>03:00 PM To 05:30 PM</td>
+                                                <td>Event</td>
+                                            </tr>
+                                            <tr class="odd">
+                                                <td>05:30 PM To 06:30 PM</td>
+                                                <td>Experience Zone And Snacks</td>
+                                            </tr>
+                                            <tr class="even">
+                                                <td>06:30 PM To 08:30 PM</td>
+                                                <td>Dinner &amp; Concert</td>
+                                            </tr>
+                                            <tr class="odd">
+                                                <td>08:30 PM To 09:30 PM</td>
+                                                <td>Cab Starts</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div><!-- /left col -->
+
+                        <!-- ══════════════════════════════════
+                             RIGHT SIDEBAR
+                        ══════════════════════════════════ -->
+                        <div class="col-xl-3 col-lg-12">
+
+                            <!-- Success Banner -->
+                            <div class="success-banner">
+                                <div class="success-icon">
+                                    <img src="./images/Assets User Personna/Mobile/Event/Event booking.svg">
+                                </div>
+                                <div class="success-text">
+                                    <p>Event seat booking successful !</p>
+                                    <p>QR generated. Please click below to view.</p>
+                                </div>
+                            </div>
+
+
+                            <div class="ticket-row" id="ticket-row-2">
+                                <div class="ticket-row-meta">
+                                    <div class="ticket-row-meta-item">
+                                        <img src="./images/Assets_Organiser_Personna/All Events and My Events/Event icon card.svg"
+                                            alt="">
+                                        <p>Team Potluck</p>
+                                    </div>
+                                    <div class="ticket-row-meta-item">
+                                        <img src="./images/Assets_Organiser_Personna/All Events and My Events/Location card.svg"
+                                            alt="">
+                                        <p>Cafe Loom, Neville</p>
+                                    </div>
+                                    <div class="ticket-row-meta-item">
+                                        <img src="./images/Assets_Organiser_Personna/All Events and My Events/Calendar card.svg"
+                                            alt="">
+                                        <p>11/12/2025</p>
+                                    </div>
+                                </div>
+
+                                <div class="ticket-row-notch-wrap">
+                                    <div class="ticket-row-notch-line"></div>
+                                </div>
+
+                                <button class="qr-tap" onclick="openQrModal()" title="View QR Code">
+                                    <div class="qr-tap-thumb">
+                                        <img src="./images/Assets User Personna/Mobile/Event/tap.png">
+                                    </div>
+                                </button>
+                            </div>
+
+                            <section class="upcoming-event-sec not-for-now">
+                                <!-- Upcoming Event Activities -->
+                                <p class="sidebar-section-title">Upcoming Event Activities</p>
+
+                                <!-- Activity 1 -->
+                                <div class="activity-card">
+                                    <div class="activity-date-badge">
+                                        <span class="month">Nov</span>
+                                        <span class="day">05</span>
+                                    </div>
+                                    <div class="activity-content">
+                                        <p class="activity-name">Talent Show</p>
+                                        <p class="activity-time">05/11/2025, 15:00 to 16:00</p>
+                                        <a href="#" class="primary-btn"
+                                            style="display:inline-block; padding: 5px 20px;">Register</a>
+                                    </div>
+                                </div>
+
+                                <!-- Activity 2 -->
+                                <div class="activity-card">
+                                    <div class="activity-date-badge">
+                                        <span class="month">Nov</span>
+                                        <span class="day">06</span>
+                                    </div>
+                                    <div class="activity-content">
+                                        <p class="activity-name">The Silent Disco</p>
+                                        <p class="activity-time">06/11/2025, 16:00 to 17:00</p>
+                                        <a href="#" class="primary-btn"
+                                            style="display:inline-block; padding: 5px 20px;">Register</a>
+                                    </div>
+                                </div>
+
+                                <!-- Activity 3 -->
+                                <div class="activity-card">
+                                    <div class="activity-date-badge">
+                                        <span class="month">Nov</span>
+                                        <span class="day">10</span>
+                                    </div>
+                                    <div class="activity-content">
+                                        <p class="activity-name">Cooking Without Fire</p>
+                                        <p class="activity-time">10/11/2025, 15:00 to 16:00</p>
+                                        <a href="#" class="primary-btn"
+                                            style="display:inline-block; padding: 5px 20px;">Register</a>
+                                    </div>
+                                </div>
+                            </section>
+                        </div><!-- /right sidebar -->
+
+                    </div><!-- /row -->
+                </div>
+            </div>
+        </section>
+
+    </section><!-- /blob-bg-body -->
+
+    <!-- ═══════════════════════════════════════════
+         FOOTER
+    ════════════════════════════════════════════ -->
+    <section class="footer-sec">
+        <div class="custom-container">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-sm-6">
+                        <p class="credits-txt">Powered by ECS | Hyperautomation</p>
+                    </div>
+                    <div class="col-sm-6 text-end">
+                        <img src="./images/Assets_Organiser_Personna/Header and Footer/footer-logo.svg"
+                            class="footer-logo">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         QR CODE MODAL
+    ════════════════════════════════════════════ -->
+    <div class="qr-modal-overlay" id="qrModalOverlay" onclick="handleOverlayClick(event)">
+        <div class="qr-modal-card" id="qrModalCard">
+
+            <!-- Close button -->
+            <button class="qr-modal-close" onclick="closeQrModal()" title="Close">
+                <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="2" y1="2" x2="12" y2="12" stroke="#8C3665" stroke-width="2" stroke-linecap="round" />
+                    <line x1="12" y1="2" x2="2" y2="12" stroke="#8C3665" stroke-width="2" stroke-linecap="round" />
+                </svg>
+            </button>
+
+            <!-- Top: gradient section with avatar + name -->
+            <div class="qr-modal-top">
+                <div class="qr-modal-avatar">
+                    <!-- Swap src for real profile photo -->
+                    <img src="./images/Assets_Organiser_Personna/Header and Footer/profile.svg" alt="Haritha Rengarajan"
+                        onerror="this.style.opacity='0.4'">
+                </div>
+                <p class="qr-modal-name">Haritha Rengarajan</p>
+                <p class="qr-modal-role">UX Consultant</p>
+                <p class="qr-modal-team">SharePoint Development Team</p>
+                <p class="qr-modal-dept">Enterprise Capabilities and Solutions</p>
+            </div>
+
+            <!-- Tear-line divider -->
+            <div class="qr-modal-tear">
+                <hr class="qr-modal-tear-line">
+            </div>
+
+            <!-- Bottom: event details + QR code -->
+            <div class="qr-modal-bottom">
+                <p class="qr-modal-event-name">Convergence 2025</p>
+                <p class="qr-modal-event-date">11 Nov 2025 | 10:00 AM</p>
+                <p class="qr-modal-scan-label">Scan the QR Code to<br>get entry at the venue</p>
+                <div class="qr-code-box">
+                    <img src="./images/Assets_Organiser_Personna/Event Information/">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function openQrModal() {
+            document.getElementById('qrModalOverlay').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeQrModal() {
+            document.getElementById('qrModalOverlay').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        // Close when clicking the backdrop (outside the card)
+        function handleOverlayClick(e) {
+            if (e.target === document.getElementById('qrModalOverlay')) {
+                closeQrModal();
+            }
+        }
+
+        // Close on Escape key
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeQrModal();
+        });
+    </script>
+
+</body>
+
+</html>

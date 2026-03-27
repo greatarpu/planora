@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">
+  <g id="Event_info_inactive" data-name="Event info inactive" transform="translate(-2 -1.999)">
+    <g id="Iconly_Light-Outline_Info-Square" data-name="Iconly/Light-Outline/Info-Square" transform="translate(0 -0.001)">
+      <g id="Info-Square" transform="translate(2 2)">
+        <path id="Combined-Shape" d="M15.767,0C19.5,0,22,2.616,22,6.508v8.985C22,19.384,19.5,22,15.765,22H6.23C2.5,22,0,19.384,0,15.492V6.508C0,2.616,2.5,0,6.23,0Zm0,1.65H6.23c-2.782,0-4.58,1.906-4.58,4.858v8.985c0,2.951,1.8,4.858,4.58,4.858h9.535c2.785,0,4.585-1.906,4.585-4.858V6.508C20.35,3.556,18.55,1.65,15.767,1.65Zm-4.774,8.525a.825.825,0,0,1,.825.825v4.4a.825.825,0,1,1-1.65,0V11A.825.825,0,0,1,10.993,10.175ZM11,5.724a1.1,1.1,0,1,1-.011,0Z" transform="translate(0)" fill="#757575" fill-rule="evenodd"/>
+      </g>
+    </g>
+  </g>
+</svg>
